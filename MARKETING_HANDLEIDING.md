@@ -102,7 +102,7 @@ Direct onder de kaartjes zie je een banner die aangeeft hoe de test ervoor staat
 
 | Banner | Betekenis |
 |---|---|
-| 🟢 **Groen** — *Statistisch significant — Variant X wint* | Er is een betrouwbare winnaar. Je kunt de test stoppen. De knop **Stop test** verschijnt hier. |
+| 🟢 **Groen** — *✓ Winnaar: X — Statistisch significant (95% / 99% confidence)* | Er is een betrouwbare winnaar. De knop **Test Stoppen** verschijnt hier. |
 | 🟡 **Geel** — *Test loopt — nog niet conclusief* | De test is actief maar heeft nog niet genoeg data. Wacht. |
 | ⬜ **Grijs** — *Test gestopt — Winnaar: X* | De test is gestopt. De winnaar staat vermeld. |
 | ⬜ **Grijs** — *Geen data* | De test is nog niet gestart of heeft nog geen weergaves. |
@@ -135,7 +135,9 @@ Gebruik de knoppen **7 / 30 / 60 / 90 dagen** om te zien hoe de test in een spec
 
 Als de groene banner verschijnt en je bent overtuigd van de winnaar:
 
-1. Klik op **Stop test** in de groene banner
+![Groene banner met Test Stoppen knop](docs/screenshots/stap6-winnaar-banner.png)
+
+1. Klik op **Test Stoppen** in de groene banner
 2. Bevestig de actie
 
 De test wordt op inactief gezet. Alle varianten blijven nog zichtbaar op de website totdat de developer de winnaar als standaard instelt.
