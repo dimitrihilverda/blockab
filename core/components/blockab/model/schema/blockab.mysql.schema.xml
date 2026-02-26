@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * BlockAB - A/B Testing for MIGX Blocks
+ *
+ * Copyright 2026 by Moving-in.nl
+ *
+ * BlockAB is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+-->
+<model package="blockab" baseClass="xPDOSimpleObject" platform="mysql" defaultEngine="InnoDB" version="1.0">
+
+    <!-- Test definitie -->
+    <object class="babTest" table="blockab_test">
+        <field key="name" dbtype="varchar" precision="255" phptype="string" null="false" />
+        <field key="description" dbtype="text" phptype="string" null="true" />
+        <field key="test_group" dbtype="varchar" precision="100" phptype="string" null="false" index="index" />
+        <field key="active" dbtype="tinyint" precision="1" phptype="bool" null="false" default="1" index="index" />
+        <field key="archived" dbtype="tinyint" precision="1" phptype="bool" null="false" default="0" index="index" />
+
+        <!-- Smart optimize opties -->
+        <field key="smartoptimize" dbtype="tinyint" precision="1" phptype="bool" null="false" default="1" />
+        <field key="threshold" dbtype="int" precision="10" phptype="integer" null="false" default="100" />
+        <field key="randomize" dbtype="int" precision="3" phptype="integer" null="false" default="25" />
+
+        <!-- Context/Resource filtering -->
+        <field key="resources" dbtype="text" phptype="string" null="true" />
+        <field key="contexts" dbtype="varchar" precision="255" phptype="string" null="true" />
+
+        <field key="created_at" dbtype="datetime" phptype="datetime" null="false" />
+        <field key="updated_at" dbtype="datetime" phptype="datetime" null="true" />
+
+        <index alias="test_group" name="test_group" primary="false" unique="true" type="BTREE">
+            <column key="test_group" length="" collation="A" null="false" />
+        </index>
+        <index alias="active" name="active" primary="false" unique="false" type="BTREE">
+            <column key="active" length="" collation="A" null="false" />
+        </index>
+
+        <composite alias="Variations" class="babVariation" cardinality="many" foreign="test" local="id" owner="local" />
+        <composite alias="Picks" class="babPick" cardinality="many" foreign="test" local="id" owner="local" />
+        <composite alias="Conversions" class="babConversion" cardinality="many" foreign="test" local="id" owner="local" />
+    </object>
+
+    <!-- Varianten van een test -->
+    <object class="babVariation" table="blockab_variation">
+        <field key="test" dbtype="int" precision="11" phptype="integer" null="false" attributes="unsigned" index="index" />
+        <field key="name" dbtype="varchar" precision="255" phptype="string" null="false" />
+        <field key="variant_key" dbtype="varchar" precision="100" phptype="string" null="false" />
+        <field key="description" dbtype="text" phptype="string" null="true" />
+        <field key="active" dbtype="tinyint" precision="1" phptype="bool" null="false" default="1" />
+        <field key="weight" dbtype="int" precision="3" phptype="integer" null="false" default="100" />
+        <field key="created_at" dbtype="datetime" phptype="datetime" null="false" />
+
+        <index alias="test" name="test" primary="false" unique="false" type="BTREE">
+            <column key="test" length="" collation="A" null="false" />
+        </index>
+        <index alias="variant_key" name="variant_key" primary="false" unique="false" type="BTREE">
+            <column key="variant_key" length="" collation="A" null="false" />
+        </index>
+
+        <aggregate alias="Test" class="babTest" cardinality="one" foreign="id" local="test" owner="foreign" />
+    </object>
+
+    <!-- Picks - welke variant is getoond -->
+    <object class="babPick" table="blockab_pick">
+        <field key="test" dbtype="int" precision="11" phptype="integer" null="false" attributes="unsigned" index="index" />
+        <field key="variation" dbtype="int" precision="11" phptype="integer" null="false" attributes="unsigned" index="index" />
+        <field key="date" dbtype="int" precision="8" phptype="integer" null="false" attributes="unsigned" index="index" />
+        <field key="amount" dbtype="int" precision="10" phptype="integer" null="false" default="0" attributes="unsigned" />
+
+        <index alias="test_date" name="test_date" primary="false" unique="false" type="BTREE">
+            <column key="test" length="" collation="A" null="false" />
+            <column key="date" length="" collation="A" null="false" />
+        </index>
+        <index alias="variation_date" name="variation_date" primary="false" unique="false" type="BTREE">
+            <column key="variation" length="" collation="A" null="false" />
+            <column key="date" length="" collation="A" null="false" />
+        </index>
+
+        <aggregate alias="Test" class="babTest" cardinality="one" foreign="id" local="test" owner="foreign" />
+        <aggregate alias="Variation" class="babVariation" cardinality="one" foreign="id" local="variation" owner="foreign" />
+    </object>
+
+    <!-- Conversions - succesvolle acties -->
+    <object class="babConversion" table="blockab_conversion">
+        <field key="test" dbtype="int" precision="11" phptype="integer" null="false" attributes="unsigned" index="index" />
+        <field key="variation" dbtype="int" precision="11" phptype="integer" null="false" attributes="unsigned" index="index" />
+        <field key="date" dbtype="int" precision="8" phptype="integer" null="false" attributes="unsigned" index="index" />
+        <field key="amount" dbtype="int" precision="10" phptype="integer" null="false" default="0" attributes="unsigned" />
+
+        <index alias="test_date" name="test_date" primary="false" unique="false" type="BTREE">
+            <column key="test" length="" collation="A" null="false" />
+            <column key="date" length="" collation="A" null="false" />
+        </index>
+        <index alias="variation_date" name="variation_date" primary="false" unique="false" type="BTREE">
+            <column key="variation" length="" collation="A" null="false" />
+            <column key="date" length="" collation="A" null="false" />
+        </index>
+
+        <aggregate alias="Test" class="babTest" cardinality="one" foreign="id" local="test" owner="foreign" />
+        <aggregate alias="Variation" class="babVariation" cardinality="one" foreign="id" local="variation" owner="foreign" />
+    </object>
+
+</model>

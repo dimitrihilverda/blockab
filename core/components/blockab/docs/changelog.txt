@@ -1,0 +1,33 @@
+Changelog for BlockAB
+
+BlockAB 1.0.0-beta1
+====================================
+- Initial release
+- A/B testing for MIGX blocks
+- Smart optimization with threshold and randomization
+- Resource filtering support (individual IDs, ranges, children)
+- Weight-based variant distribution
+- Session-based variant persistence
+- Conversion tracking (BlockABConversion snippet)
+- BlockAB and BlockABConversion snippets
+- BlockABGetTestGroups and BlockABGetVariants helper snippets
+- English and Dutch translations
+- Custom Manager Page (CMP) for managing tests and variants
+
+BlockAB 1.1.0
+====================================
+- Statistics dashboard with chi-square significance testing
+- Winner detection with 95% and 99% confidence levels
+- Stat cards (total views, total conversions, best conversion rate)
+- Significance banner (green / yellow / grey) with Stop Test button
+- Variant progress bars and winner row highlighting
+- Date range filter (7 / 30 / 60 / 90 days / all-time)
+- Winner sync to Varianten tab (trophy icon + green row)
+- Archived tests tab with archive / restore / delete workflow
+- Delete dialog offers archive-or-permanently-delete choice
+- Debug mode for BlockABConversion snippet (managers only)
+- Session-based conversion deduplication (page refresh no longer double-counts)
+- In-memory cache for variations and active tests (performance)
+- Fix: empty test group now correctly shows the block (fail-safe)
+- Babel-style page header with About and Handleiding buttons
+- build.transport.php and build.simple.php accept MODX path as CLI argument

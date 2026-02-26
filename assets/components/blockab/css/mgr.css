@@ -1,0 +1,464 @@
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap');
+
+.blockab-actions-column ul.actions {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.blockab-actions-column ul.actions li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+#blockab-panel-home,
+#blockab-panel-test {
+    padding: 20px;
+}
+
+/* Add spacing around grids */
+.blockab-grid-tests,
+.blockab-grid-variations {
+    margin: 15px 0;
+}
+
+/* Add padding inside ExtJS panels */
+.modx-formpanel .x-panel-body {
+    padding: 15px;
+}
+
+/* Grid cells padding */
+#blockab-grid-tests .x-grid3-cell-inner,
+#blockab-grid-variations .x-grid3-cell-inner {
+    padding: 8px 10px !important;
+}
+
+/* Grid headers padding */
+#blockab-grid-tests .x-grid3-hd-inner,
+#blockab-grid-variations .x-grid3-hd-inner {
+    padding: 8px 10px !important;
+}
+
+.blockab-stats-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.blockab-stats-table th,
+.blockab-stats-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.blockab-stats-table th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+}
+
+/* ---- Page header (Babel-style) ---- */
+.blockab-page-header-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.blockab-header-left {
+    flex: 1;
+}
+
+.blockab-header-title {
+    margin: 0 0 4px 0 !important;
+    font-size: 22px;
+    font-family: 'Titillium Web', 'Segoe UI', Arial, sans-serif;
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+.blockab-title-wordmark {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.blockab-title-icon {
+    height: 22px;
+    width: auto;
+    display: block;
+}
+
+.blockab-title-block {
+    color: #384856;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+}
+
+.blockab-title-ab {
+    color: #2b6cb0;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+}
+
+.blockab-page-subtitle {
+    font-size: 16px;
+    font-weight: 300;
+    color: #9ab4cc;
+    font-family: 'Titillium Web', 'Segoe UI', Arial, sans-serif;
+}
+
+.blockab-back-link {
+    display: inline-block;
+    margin-top: 2px;
+    font-size: 12px;
+}
+
+.blockab-back-link a {
+    color: #555;
+    text-decoration: none;
+}
+
+.blockab-back-link a:hover {
+    color: #222;
+    text-decoration: underline;
+}
+
+.blockab-header-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+    padding-top: 4px;
+    flex-shrink: 0;
+}
+
+.blockab-header-logo {
+    width: 120px;
+    height: auto;
+    display: block;
+}
+
+.blockab-header-btns {
+    display: flex;
+    gap: 6px;
+}
+
+.blockab-header-btn {
+    padding: 5px 14px;
+    border: 1px solid #ccc;
+    background: #f8f9fa;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #333;
+    white-space: nowrap;
+}
+
+.blockab-header-btn:hover {
+    background: #e2e6ea;
+    border-color: #bbb;
+}
+
+/* Stats cards row */
+.blockab-stats-cards {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.blockab-stats-card {
+    flex: 1;
+    min-width: 120px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 16px 20px;
+    text-align: center;
+}
+
+.blockab-stats-card-value {
+    font-size: 28px;
+    font-weight: bold;
+    color: #2c3e50;
+    line-height: 1.2;
+}
+
+.blockab-stats-card-label {
+    font-size: 12px;
+    color: #888;
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Significance banner */
+.blockab-significance-banner {
+    padding: 12px 16px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.blockab-banner-green {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+}
+
+.blockab-banner-yellow {
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+    color: #856404;
+}
+
+.blockab-banner-grey {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    color: #6c757d;
+}
+
+/* Stop test button inside banner */
+.blockab-stop-btn {
+    margin-left: 12px;
+    padding: 4px 12px;
+    background: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.blockab-stop-btn:hover {
+    background: #c82333;
+}
+
+/* Variant table enhancements */
+.blockab-variant-table {
+    margin-top: 0;
+}
+
+.blockab-variant-table td {
+    color: #333;
+}
+
+/* Active/inactive badges in tests grid */
+.blockab-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.blockab-badge-active {
+    background: #d4edda;
+    color: #155724;
+}
+
+.blockab-badge-inactive {
+    background: #e9ecef;
+    color: #6c757d;
+}
+
+/* Inactive test row in grid */
+.x-grid3-row.blockab-row-inactive .x-grid3-cell-inner {
+    color: #999 !important;
+}
+
+/* Winner row in ExtJS grid (uses div-based rows, not tr/td) */
+.x-grid3-row.blockab-winner-row {
+    background-color: #d4edda !important;
+}
+
+.x-grid3-row.blockab-winner-row .x-grid3-cell-inner {
+    background-color: #d4edda !important;
+}
+
+.blockab-winner-row td {
+    background-color: #d4edda !important;
+}
+
+/* Progress bar */
+.blockab-progress-bar-wrap {
+    background: #e9ecef;
+    border-radius: 3px;
+    height: 10px;
+    width: 100%;
+    min-width: 80px;
+}
+
+.blockab-progress-bar {
+    background: #63b3ed;
+    height: 10px;
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+.blockab-winner-row .blockab-progress-bar {
+    background: #28a745;
+}
+
+/* Sample size warning icon */
+.blockab-sample-warning {
+    color: #e67e22;
+    margin-left: 4px;
+    cursor: help;
+}
+
+/* Date range buttons */
+.blockab-date-range {
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.blockab-date-range span {
+    color: #666;
+    font-size: 13px;
+}
+
+.blockab-date-btn {
+    padding: 4px 10px;
+    border: 1px solid #ccc;
+    background: #f8f9fa;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #333;
+}
+
+.blockab-date-btn:hover {
+    background: #e2e6ea;
+}
+
+.blockab-date-range-active {
+    background: #2b6cb0;
+    border-color: #2b6cb0;
+    color: #fff;
+}
+
+.blockab-date-range-active:hover {
+    background: #1a5296;
+}
+
+/* ---- About popup ---- */
+.blockab-about-wrap,
+.blockab-manual-wrap {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #444;
+}
+
+.blockab-about-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 20px 16px;
+    background: #f8f9fa;
+}
+
+.blockab-about-logo {
+    display: block;
+    flex-shrink: 0;
+    width: 180px;
+    height: auto;
+}
+
+.blockab-about-appinfo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.blockab-about-appname {
+    font-size: 22px;
+    font-family: 'Titillium Web', 'Segoe UI', Arial, sans-serif;
+    font-weight: 400;
+    line-height: 1;
+}
+
+.blockab-about-version {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    color: #fff;
+    background: #2b6cb0;
+    padding: 2px 8px;
+    border-radius: 10px;
+    width: fit-content;
+}
+
+.blockab-about-divider {
+    height: 1px;
+    background: #e9ecef;
+}
+
+.blockab-about-body,
+.blockab-manual-wrap {
+    padding: 16px 20px;
+}
+
+.blockab-about-body p,
+.blockab-manual-wrap p {
+    margin: 0 0 10px;
+}
+
+.blockab-about-features {
+    margin: 10px 0 0;
+    padding-left: 18px;
+    color: #555;
+}
+
+.blockab-about-features li {
+    margin-bottom: 4px;
+}
+
+.blockab-about-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+    font-size: 12px;
+    color: #888;
+}
+
+.blockab-about-footer a {
+    color: #2b6cb0;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.blockab-about-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Manual popup link button */
+.blockab-manual-link {
+    margin-top: 14px;
+    text-align: center;
+}
+
+.blockab-manual-btn {
+    display: inline-block;
+    padding: 8px 18px;
+    background: #2b6cb0;
+    color: #fff !important;
+    border-radius: 4px;
+    text-decoration: none !important;
+    font-weight: 500;
+    font-size: 13px;
+    font-family: 'Titillium Web', 'Segoe UI', Arial, sans-serif;
+}
+
+.blockab-manual-btn:hover {
+    background: #1a5296;
+}

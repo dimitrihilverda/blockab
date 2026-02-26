@@ -1,0 +1,15 @@
+# Build output
+*.transport.zip
+*.zip
+
+# Build cache
+_build/cache/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
