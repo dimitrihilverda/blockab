@@ -136,4 +136,4 @@ GNU General Public License v2.0
 ## Support
 
 For issues, questions, or feature requests:
-- GitHub Issues: [moving-in-nl/blockab](https://github.com/moving-in-nl/blockab)
+- GitHub Issues: [moving-in-nl/blockab](https://github.com/dimitrihilverda/blockab)

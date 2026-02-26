@@ -126,4 +126,4 @@ Click "Test Stoppen" when you have a clear winner.
 SUPPORT & BUGS
 --------------------
 
-https://github.com/moving-in-nl/blockab
+https://github.com/dimitrihilverda/blockab

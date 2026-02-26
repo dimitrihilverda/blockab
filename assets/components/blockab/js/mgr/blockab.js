@@ -46,7 +46,7 @@ BlockAB.showAbout = function() {
             +   '</ul>'
             + '</div>'
             + '<div class="blockab-about-footer">'
-            +   '<a href="https://github.com/moving-in-nl/blockab" target="_blank">&#128196; GitHub</a>'
+            +   '<a href="https://github.com/dimitrihilverda/blockab" target="_blank">&#128196; GitHub</a>'
             +   '<span>&copy; 2026 Moving-in.nl</span>'
             + '</div>'
             + '</div>';
@@ -82,8 +82,8 @@ BlockAB.showManual = function() {
             +   '<li>Troubleshooting</li>'
             + '</ul>'
             + '<div class="blockab-manual-link">'
-            +   '<a href="https://github.com/moving-in-nl/blockab" target="_blank" class="blockab-manual-btn">'
-            +     '&#128196;&nbsp; github.com/moving-in-nl/blockab'
+            +   '<a href="https://github.com/dimitrihilverda/blockab" target="_blank" class="blockab-manual-btn">'
+            +     '&#128196;&nbsp; github.com/dimitrihilverda/blockab'
             +   '</a>'
             + '</div>'
             + '</div>';

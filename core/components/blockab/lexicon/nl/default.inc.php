@@ -12,7 +12,7 @@ $_lang['blockab.back_to_overview'] = 'Terug naar Test Overzicht';
 $_lang['blockab.about'] = 'Over BlockAB';
 $_lang['blockab.about_text'] = "BlockAB — A/B test module voor MIGX blokken\n\nMet BlockAB stel je A/B tests in voor content blokken die via MIGX worden beheerd. Het systeem registreert weergaves en conversies per variant en berekent automatisch statistische significantie via een chi-kwadraat test.\n\n© 2026 Moving-in.nl";
 $_lang['blockab.manual'] = 'Handleiding';
-$_lang['blockab.manual_text'] = 'De documentatie van BlockAB is beschikbaar op GitHub:\nhttps://github.com/moving-in-nl/blockab';
+$_lang['blockab.manual_text'] = 'De documentatie van BlockAB is beschikbaar op GitHub:\nhttps://github.com/dimitrihilverda/blockab';
 
 // Tests
 $_lang['blockab.test'] = 'Test';
