@@ -62,14 +62,11 @@ Add two fields to your MIGX configuration:
 
 ## Important Notes
 
-### Dynamic Loading Limitation
+### Dynamic Variant Loading
 
-MIGX doesn't support real-time dependent dropdown updates. The variant dropdown will:
-- Load correctly when opening an existing MIGX item
-- Update after saving and reopening the item
-- Show default options (A-E) if test group isn't set yet
+The variant dropdown updates dynamically when you select a test group — no save and reload required. BlockAB uses MIGX Cascade logic to fetch the available variants via AJAX as soon as the test group changes.
 
-This is a MIGX limitation, not a BlockAB issue.
+If no test group is selected yet, the dropdown falls back to the default options (A–E).
 
 ### Alternative: Static Variant Keys
 
