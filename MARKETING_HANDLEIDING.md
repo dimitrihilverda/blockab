@@ -25,14 +25,19 @@ Je ziet twee tabbladen:
 
 Klik op **Test aanmaken** (of rechtsklik → Aanmaken in het grid).
 
+![Test aanmaken formulier](docs/screenshots/stap2-test-aanmaken.png)
+
 Vul in:
 
 | Veld | Wat vul je in? |
 |---|---|
-| **Naam** | Duidelijke beschrijving, bijv. `Homepage Hero — Headline test` |
-| **Test Group** | Een unieke code zonder spaties, bijv. `homepage_hero_headline`. **Geef deze code door aan de developer** — die koppelt de MIGX blokken hieraan. |
+| **Naam** | Duidelijke beschrijving, bijv. `Aanmeldformulier CTA` |
+| **Test Groep** | Een unieke code zonder spaties, bijv. `signup_cta`. **Geef deze code door aan de developer** — die koppelt de MIGX blokken hieraan. |
 | **Beschrijving** | Optioneel: je hypothese of doel |
-| **Actief** | Laat uit totdat de developer de blokken heeft gekoppeld |
+| **Actief** | Laat **uit** totdat de developer de blokken heeft gekoppeld |
+| **Slim Optimaliseren** | Laat **aan** staan — BlockAB stuurt automatisch meer verkeer naar de best presterende variant |
+| **Drempelwaarde** | Aantal conversies voordat slim optimaliseren start (standaard: 100). Niet aanpassen tenzij je daar een reden voor hebt. |
+| **Randomize %** | Percentage bezoekers dat na de drempelwaarde nog steeds willekeurig een variant ziet (standaard: 25). Niet aanpassen. |
 
 Klik **Opslaan**.
 
@@ -44,11 +49,15 @@ Na het opslaan verschijnt onderaan het scherm een **Varianten** overzicht.
 
 Klik op **Variant aanmaken** en vul per variant in:
 
+![Variant aanmaken formulier](docs/screenshots/stap3-variant-aanmaken.png)
+
 | Veld | Wat vul je in? |
 |---|---|
-| **Naam** | Beschrijvende naam, bijv. `Variant A — Origineel` of `Variant B — Prijs in headline` |
-| **Variant Key** | De letter die je aan de developer doorgeeft: `A`, `B`, `C`, … |
+| **Variant Key** | De letter die je aan de developer doorgeeft: `A`, `B`, `C`, … De eerste beschikbare letter wordt automatisch voorgesteld. |
+| **Naam** | Beschrijvende naam van de variant, bijv. `Aanmelden`, `Start gratis` of `Probeer nu` |
+| **Beschrijving** | Optioneel: noteer hier kort wat je in deze variant test, bijv. `Nadruk op gratis instapdrempel` |
 | **Gewicht** | Hoe vaak deze variant getoond wordt t.o.v. andere varianten. Laat op `100` staan voor een gelijke verdeling. |
+| **Actief** | Laat **aan** staan om de variant mee te nemen in de test |
 
 Maak minimaal **2 varianten** aan. Meer is mogelijk, maar met weinig websiteverkeer duurt het langer om betrouwbare resultaten te krijgen.
 
@@ -71,39 +80,50 @@ De test loopt nu. Bezoekers krijgen automatisch willekeurig een variant te zien.
 
 ## 5. Statistieken bekijken
 
-Klik op een test om de statistieken te openen.
+Klik op een test om de statistieken te openen en ga naar het tabblad **Statistieken**.
 
-### Bovenaan: drie overzichtsgetallen
+![Statistieken pagina](docs/screenshots/stap5-statistieken.png)
+
+### Periode
+
+Bovenaan kun je kiezen over welke periode je de statistieken wilt zien: **7 dagen**, **30 dagen**, **60 dagen** of **90 dagen**. De actieve periode is blauw gemarkeerd.
+
+### De drie overzichtsgetallen
 
 | Getal | Betekenis |
 |---|---|
-| **Total Views** | Hoeveel keer een variant is getoond aan unieke bezoekers |
-| **Total Conversions** | Hoeveel bezoekers daarna een conversie hebben uitgevoerd |
-| **Best Rate** | Het hoogste conversiepercentage van alle varianten |
+| **Totaal Weergaves** | Hoeveel keer een variant is getoond aan unieke bezoekers |
+| **Conversies** | Hoeveel van die bezoekers daarna een conversie hebben uitgevoerd |
+| **Beste Rate** | Het hoogste conversiepercentage van alle varianten |
 
-### De significantiebanner
+### De statusbanner
 
-Hieronder zie je direct of de test al conclusies toelaat:
+Direct onder de kaartjes zie je een banner die aangeeft hoe de test ervoor staat:
 
-| Kleur | Betekenis |
+| Banner | Betekenis |
 |---|---|
-| 🟢 **Groen** | Statistisch significant resultaat — er is een betrouwbare winnaar |
-| 🟡 **Geel** | Test loopt — nog niet genoeg data voor een conclusie |
-| ⬜ **Grijs** | Nog geen data |
+| 🟢 **Groen** — *Statistisch significant — Variant X wint* | Er is een betrouwbare winnaar. Je kunt de test stoppen. De knop **Stop test** verschijnt hier. |
+| 🟡 **Geel** — *Test loopt — nog niet conclusief* | De test is actief maar heeft nog niet genoeg data. Wacht. |
+| ⬜ **Grijs** — *Test gestopt — Winnaar: X* | De test is gestopt. De winnaar staat vermeld. |
+| ⬜ **Grijs** — *Geen data* | De test is nog niet gestart of heeft nog geen weergaves. |
 
-Bij een **groene banner** staat ook de betrouwbaarheid vermeld: **95% confidence** (goed) of **99% confidence** (uitstekend). Dit betekent dat de kans dat het verschil op toeval berust kleiner is dan 5% resp. 1%.
+Bij de **groene banner** staat ook de betrouwbaarheid: **95% confidence** of **99% confidence**. Hoe hoger, hoe zekerder het resultaat.
 
 ### De variantentabel
 
 Per variant zie je:
 
-- **Views** — aantal unieke vertoningen
-- **Conversies** — aantal conversies
-- **Rate %** — conversiepercentage
-- **Progressbar** — visuele vergelijking t.o.v. de best presterende variant
-- **Status** — 🏆 winnaar of ⚠ te weinig data (< 30 views)
+| Kolom | Betekenis |
+|---|---|
+| **Variant** | De letter (A, B, C) en een 🏆 bij de winnaar |
+| **Naam** | De naam die je bij het aanmaken hebt ingevuld |
+| **Weergaves** | Aantal unieke vertoningen |
+| **Conversies** | Aantal conversies |
+| **Rate %** | Conversiepercentage — hoe hoger, hoe beter |
+| **Progressbar** | Visuele vergelijking t.o.v. de best presterende variant |
+| **Status** | *Winnaar* bij de winnende variant |
 
-De winnende variant heeft een **groene achtergrond**.
+De **winnende rij heeft een groene achtergrond** en een groene progressbar. Varianten met minder dan 30 weergaves krijgen een waarschuwingspictogram — die data is nog niet betrouwbaar.
 
 ### Datumfilter
 
