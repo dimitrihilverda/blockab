@@ -13,7 +13,7 @@ You show visitors different versions of the same block (e.g. a different headlin
 
 ## 1. Navigating to BlockAB
 
-In the MODX admin panel, go to **Components → BlockAB**.
+In the manager, go to **Components → BlockAB**.
 
 You will see two tabs:
 - **Tests** — all active and running tests
@@ -67,7 +67,7 @@ Create at least **2 variants**. More is possible, but with low website traffic i
 
 Now create a MIGX block for each variant (or edit an existing block) on the page you want to test.
 
-1. Go to the page in the MODX manager
+1. Go to the page in the manager
 2. Click the MIGX field (e.g. "Assemble page")
 3. Click **Add item** and choose the block type, or open an existing block via **Edit**
 4. Go to the **A/B settings** tab
@@ -158,7 +158,7 @@ When the green banner appears and you are convinced of the winner:
 The test is set to inactive. All variants remain visible on the website.
 
 **Then clean up the losing blocks yourself:**
-1. Go to the page in the MODX manager
+1. Go to the page in the manager
 2. Open the MIGX field
 3. Delete all blocks except the winning block
 4. Clear the A/B settings on the winning block (empty the A/B Test Group field) so it is always shown

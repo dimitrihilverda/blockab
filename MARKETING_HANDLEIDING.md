@@ -13,7 +13,7 @@ Je toont bezoekers verschillende versies van hetzelfde blok (bijv. een andere he
 
 ## 1. Navigeren naar BlockAB
 
-Ga in het MODX beheer naar **Components → BlockAB**.
+Ga in de manager naar **Components → BlockAB**.
 
 Je ziet twee tabbladen:
 - **Tests** — alle actieve en lopende tests
@@ -67,7 +67,7 @@ Maak minimaal **2 varianten** aan. Meer is mogelijk, maar met weinig websiteverk
 
 Nu ga je voor elke variant een MIGX blok aanmaken (of een bestaand blok aanpassen) op de pagina die je wilt testen.
 
-1. Ga naar de pagina in het MODX beheer
+1. Ga naar de pagina in de manager
 2. Klik op het MIGX veld (bijv. "Pagina samenstellen")
 3. Klik op **Voeg item toe** en kies het bloktype, of open een bestaand blok via **Bewerk**
 4. Ga naar het tabblad **A/B settings**
@@ -158,7 +158,7 @@ Als de groene banner verschijnt en je bent overtuigd van de winnaar:
 De test wordt op inactief gezet. Alle varianten blijven nog zichtbaar op de website.
 
 **Ruim daarna de verliezende blokken op:**
-1. Ga naar de pagina in het MODX beheer
+1. Ga naar de pagina in de manager
 2. Open het MIGX veld
 3. Verwijder alle blokken behalve het winnende blok
 4. Verwijder bij het winnende blok de A/B-instellingen (leeg het A/B Test Group veld) zodat het blok altijd wordt getoond
