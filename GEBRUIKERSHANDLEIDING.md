@@ -99,7 +99,7 @@ Na het opslaan van je test zie je onderaan het scherm een **Variations** grid.
 Nu ga je de daadwerkelijke content maken voor elke variant.
 
 1. Ga naar de pagina waar je de test wilt uitvoeren
-2. Open het MIGX veld waar je blokken in staan
+2. Open de MIGX TV waar je blokken in staan
 3. **Maak voor elke variant een apart MIGX blok** met dezelfde content, maar met kleine variaties
 
 Voor elke MIGX item:

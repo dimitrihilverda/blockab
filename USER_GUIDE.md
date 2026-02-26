@@ -95,7 +95,7 @@ After saving your test, a **Variations** grid appears at the bottom of the scree
 Now you create the actual content for each variant.
 
 1. Go to the page where you want to run the test
-2. Open the MIGX field containing your blocks
+2. Open the MIGX TV containing your blocks
 3. **Create a separate MIGX block for each variant** with the same content, but with small variations
 
 For each MIGX item:

@@ -68,7 +68,7 @@ Create at least **2 variants**. More is possible, but with low website traffic i
 Now create a MIGX block for each variant (or edit an existing block) on the page you want to test.
 
 1. Go to the page in the manager
-2. Click the MIGX field (e.g. "Assemble page")
+2. Click the MIGX TV (e.g. "Assemble page")
 3. Click **Add item** and choose the block type, or open an existing block via **Edit**
 4. Go to the **A/B settings** tab
 5. Select your test under **A/B Test Group** — the variant dropdown fills automatically
@@ -159,7 +159,7 @@ The test is set to inactive. All variants remain visible on the website.
 
 **Then clean up the losing blocks yourself:**
 1. Go to the page in the manager
-2. Open the MIGX field
+2. Open the MIGX TV
 3. Delete all blocks except the winning block
 4. Clear the A/B settings on the winning block (empty the A/B Test Group field) so it is always shown
 5. Save the page

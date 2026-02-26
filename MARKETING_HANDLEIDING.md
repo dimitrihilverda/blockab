@@ -68,7 +68,7 @@ Maak minimaal **2 varianten** aan. Meer is mogelijk, maar met weinig websiteverk
 Nu ga je voor elke variant een MIGX blok aanmaken (of een bestaand blok aanpassen) op de pagina die je wilt testen.
 
 1. Ga naar de pagina in de manager
-2. Klik op het MIGX veld (bijv. "Pagina samenstellen")
+2. Klik op de MIGX TV (bijv. "Pagina samenstellen")
 3. Klik op **Voeg item toe** en kies het bloktype, of open een bestaand blok via **Bewerk**
 4. Ga naar het tabblad **A/B settings**
 5. Selecteer je test bij **A/B Test Group** — de variantendropdown vult zich automatisch
@@ -159,7 +159,7 @@ De test wordt op inactief gezet. Alle varianten blijven nog zichtbaar op de webs
 
 **Ruim daarna de verliezende blokken op:**
 1. Ga naar de pagina in de manager
-2. Open het MIGX veld
+2. Open de MIGX TV
 3. Verwijder alle blokken behalve het winnende blok
 4. Verwijder bij het winnende blok de A/B-instellingen (leeg het A/B Test Group veld) zodat het blok altijd wordt getoond
 5. Sla de pagina op

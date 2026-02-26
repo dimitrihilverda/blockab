@@ -86,7 +86,7 @@ This means: when you add a second block to the same test group, the variant that
    - Add variants: A (Control), B (New Design)
    - Set Active: on
 
-2. Edit a page with your MIGX field and add a new block:
+2. Edit a page with your MIGX TV and add a new block:
    - Select `Homepage Hero Test (homepage_hero)` from the test group dropdown
    - The variant dropdown fills immediately — no save required
    - Variant A is selected automatically
