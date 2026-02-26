@@ -32,9 +32,9 @@ Fill in:
 | Field | What to enter |
 |---|---|
 | **Name** | A clear description, e.g. `Sign-up Form CTA` |
-| **Test Group** | A unique code without spaces, e.g. `signup_cta`. **Pass this code to the developer** — they will link the MIGX blocks to it. |
+| **Test Group** | A unique code without spaces, e.g. `signup_cta`. You will use this code when linking MIGX blocks to the test. |
 | **Description** | Optional: your hypothesis or goal |
-| **Active** | Leave **off** until the developer has linked the blocks |
+| **Active** | Leave **off** until you have linked the blocks on the page |
 | **Smart Optimize** | Leave **on** — BlockAB will automatically send more traffic to the best-performing variant |
 | **Threshold** | Number of conversions before smart optimisation starts (default: 100). Do not change unless you have a reason to. |
 | **Randomize %** | Percentage of visitors who still receive a random variant after the threshold (default: 25). Do not change. |
@@ -53,7 +53,7 @@ Click **Create Variant** and fill in per variant:
 
 | Field | What to enter |
 |---|---|
-| **Variant Key** | The letter you pass to the developer: `A`, `B`, `C`, … The first available letter is suggested automatically. |
+| **Variant Key** | The letter for this variant: `A`, `B`, `C`, … The first available letter is suggested automatically. |
 | **Name** | A descriptive name for the variant, e.g. `Sign up`, `Start for free` or `Try now` |
 | **Description** | Optional: briefly note what you are testing in this variant, e.g. `Emphasis on free entry point` |
 | **Weight** | How often this variant is shown relative to others. Leave at `100` for equal distribution. |
@@ -61,14 +61,29 @@ Click **Create Variant** and fill in per variant:
 
 Create at least **2 variants**. More is possible, but with low website traffic it takes longer to get reliable results.
 
-> **After this step, pass the Test Group key and Variant Keys to the developer.**
-> The developer links the correct MIGX blocks to each variant.
+---
+
+## 4. Linking blocks on the page
+
+Now create a MIGX block for each variant (or edit an existing block) on the page you want to test.
+
+1. Go to the page in the MODX manager
+2. Click the MIGX field (e.g. "Assemble page")
+3. Click **Add item** and choose the block type, or open an existing block via **Edit**
+4. Go to the **A/B settings** tab
+5. Select your test under **A/B Test Group** — the variant dropdown fills automatically
+6. Select the correct **Variant** (A, B, C) — the first available variant is selected automatically
+7. Fill in the rest of the block content (text, image, etc.) to match the variant
+8. Save the block
+9. Repeat for each variant
+
+> **Tip:** Create one block per variant. Make sure all blocks use the same block type and that only the element you are testing differs.
 
 ---
 
-## 4. Activating the test
+## 5. Activating the test
 
-Once the developer has linked the blocks:
+Once all blocks have been linked:
 
 1. Right-click the test in the grid → **Edit**
 2. Set **Active** to on
@@ -78,7 +93,7 @@ The test is now running. Visitors will automatically be shown a random variant.
 
 ---
 
-## 5. Viewing statistics
+## 6. Viewing statistics
 
 Click on a test to open the statistics and go to the **Statistics** tab.
 
@@ -131,7 +146,7 @@ Use the **7 / 30 / 60 / 90 days** buttons to see how the test performed in a spe
 
 ---
 
-## 6. Stopping the test
+## 7. Stopping the test
 
 When the green banner appears and you are convinced of the winner:
 
@@ -140,13 +155,18 @@ When the green banner appears and you are convinced of the winner:
 1. Click **Stop Test** in the green banner
 2. Confirm the action
 
-The test is set to inactive. All variants remain visible on the website until the developer sets the winner as the default.
+The test is set to inactive. All variants remain visible on the website.
 
-> **Let the developer know which variant won**, so they can clean up the MIGX blocks.
+**Then clean up the losing blocks yourself:**
+1. Go to the page in the MODX manager
+2. Open the MIGX field
+3. Delete all blocks except the winning block
+4. Clear the A/B settings on the winning block (empty the A/B Test Group field) so it is always shown
+5. Save the page
 
 ---
 
-## 7. Archiving a test
+## 8. Archiving a test
 
 Closed tests can be archived to keep the Tests overview tidy:
 
@@ -159,7 +179,7 @@ Archived tests can be found in the **Archived** tab and can also be restored fro
 
 ---
 
-## 8. When is a result reliable?
+## 9. When is a result reliable?
 
 BlockAB does this automatically via a statistical test (chi-square). But here are practical guidelines:
 
@@ -175,7 +195,7 @@ BlockAB does this automatically via a statistical test (chi-square). But here ar
 
 ---
 
-## 9. Tips for good tests
+## 10. Tips for good tests
 
 **Test one thing at a time**
 Only change the headline, or the button text, or the image. Not multiple things at once — then you won't know what made the difference.
@@ -201,17 +221,17 @@ Note what you tested and what you learned. That helps with future tests.
           ↓
 2. Create variants (A, B, C with names and keys)
           ↓
-3. Pass test group key + variant keys to developer
+3. Link blocks on the page (MIGX → A/B settings tab)
           ↓
-4. Developer links MIGX blocks → you set test to Active
+4. Set test to Active in BlockAB
           ↓
 5. Monitor test via statistics (daily or weekly)
           ↓
 6. Green banner → determine winner → stop test
           ↓
-7. Inform developer of winner → archive test
+7. Remove losing blocks → archive test
 ```
 
 ---
 
-*Questions about the technical side? Contact your developer.*
+*Technical questions about installation or templates? Contact your developer.*

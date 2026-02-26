@@ -32,9 +32,9 @@ Vul in:
 | Veld | Wat vul je in? |
 |---|---|
 | **Naam** | Duidelijke beschrijving, bijv. `Aanmeldformulier CTA` |
-| **Test Groep** | Een unieke code zonder spaties, bijv. `signup_cta`. **Geef deze code door aan de developer** — die koppelt de MIGX blokken hieraan. |
+| **Test Groep** | Een unieke code zonder spaties, bijv. `signup_cta`. Deze code gebruik je straks om de MIGX blokken aan de test te koppelen. |
 | **Beschrijving** | Optioneel: je hypothese of doel |
-| **Actief** | Laat **uit** totdat de developer de blokken heeft gekoppeld |
+| **Actief** | Laat **uit** totdat je de blokken hebt gekoppeld op de pagina |
 | **Slim Optimaliseren** | Laat **aan** staan — BlockAB stuurt automatisch meer verkeer naar de best presterende variant |
 | **Drempelwaarde** | Aantal conversies voordat slim optimaliseren start (standaard: 100). Niet aanpassen tenzij je daar een reden voor hebt. |
 | **Randomize %** | Percentage bezoekers dat na de drempelwaarde nog steeds willekeurig een variant ziet (standaard: 25). Niet aanpassen. |
@@ -53,7 +53,7 @@ Klik op **Variant aanmaken** en vul per variant in:
 
 | Veld | Wat vul je in? |
 |---|---|
-| **Variant Key** | De letter die je aan de developer doorgeeft: `A`, `B`, `C`, … De eerste beschikbare letter wordt automatisch voorgesteld. |
+| **Variant Key** | De letter voor deze variant: `A`, `B`, `C`, … De eerste beschikbare letter wordt automatisch voorgesteld. |
 | **Naam** | Beschrijvende naam van de variant, bijv. `Aanmelden`, `Start gratis` of `Probeer nu` |
 | **Beschrijving** | Optioneel: noteer hier kort wat je in deze variant test, bijv. `Nadruk op gratis instapdrempel` |
 | **Gewicht** | Hoe vaak deze variant getoond wordt t.o.v. andere varianten. Laat op `100` staan voor een gelijke verdeling. |
@@ -61,14 +61,29 @@ Klik op **Variant aanmaken** en vul per variant in:
 
 Maak minimaal **2 varianten** aan. Meer is mogelijk, maar met weinig websiteverkeer duurt het langer om betrouwbare resultaten te krijgen.
 
-> **Geef na dit stap de Test Group key en de Variant Keys door aan de developer.**
-> De developer koppelt de juiste MIGX blokken aan elke variant.
+---
+
+## 4. Blokken koppelen op de pagina
+
+Nu ga je voor elke variant een MIGX blok aanmaken (of een bestaand blok aanpassen) op de pagina die je wilt testen.
+
+1. Ga naar de pagina in het MODX beheer
+2. Klik op het MIGX veld (bijv. "Pagina samenstellen")
+3. Klik op **Voeg item toe** en kies het bloktype, of open een bestaand blok via **Bewerk**
+4. Ga naar het tabblad **A/B settings**
+5. Selecteer je test bij **A/B Test Group** — de variantendropdown vult zich automatisch
+6. Selecteer de juiste **Variant** (A, B, C) — de eerste vrije variant wordt automatisch geselecteerd
+7. Vul de overige blokinstellingen in (tekst, afbeelding, etc.) zodat ze overeenkomen met de variant
+8. Sla het blok op
+9. Herhaal dit voor elke variant
+
+> **Tip:** Maak één blok per variant. Zorg dat alle blokken hetzelfde bloktype gebruiken en dat alleen het element dat je test verschilt.
 
 ---
 
-## 4. De test activeren
+## 5. De test activeren
 
-Zodra de developer de blokken heeft gekoppeld:
+Zodra alle blokken zijn gekoppeld:
 
 1. Rechtsklik op de test in het grid → **Bewerken**
 2. Zet **Actief** op aan
@@ -78,7 +93,7 @@ De test loopt nu. Bezoekers krijgen automatisch willekeurig een variant te zien.
 
 ---
 
-## 5. Statistieken bekijken
+## 6. Statistieken bekijken
 
 Klik op een test om de statistieken te openen en ga naar het tabblad **Statistieken**.
 
@@ -131,7 +146,7 @@ Gebruik de knoppen **7 / 30 / 60 / 90 dagen** om te zien hoe de test in een spec
 
 ---
 
-## 6. De test stoppen
+## 7. De test stoppen
 
 Als de groene banner verschijnt en je bent overtuigd van de winnaar:
 
@@ -140,13 +155,18 @@ Als de groene banner verschijnt en je bent overtuigd van de winnaar:
 1. Klik op **Test Stoppen** in de groene banner
 2. Bevestig de actie
 
-De test wordt op inactief gezet. Alle varianten blijven nog zichtbaar op de website totdat de developer de winnaar als standaard instelt.
+De test wordt op inactief gezet. Alle varianten blijven nog zichtbaar op de website.
 
-> **Laat de developer weten welke variant heeft gewonnen**, zodat die de MIGX blokken kan opschonen.
+**Ruim daarna de verliezende blokken op:**
+1. Ga naar de pagina in het MODX beheer
+2. Open het MIGX veld
+3. Verwijder alle blokken behalve het winnende blok
+4. Verwijder bij het winnende blok de A/B-instellingen (leeg het A/B Test Group veld) zodat het blok altijd wordt getoond
+5. Sla de pagina op
 
 ---
 
-## 7. Een test archiveren
+## 8. Een test archiveren
 
 Gesloten tests kun je archiveren zodat het Tests overzicht overzichtelijk blijft:
 
@@ -159,7 +179,7 @@ Gearchiveerde tests zijn terug te vinden in het tabblad **Gearchiveerd** en zijn
 
 ---
 
-## 8. Wanneer is een resultaat betrouwbaar?
+## 9. Wanneer is een resultaat betrouwbaar?
 
 BlockAB doet dit automatisch via een statistische test (chi-kwadraat). Maar hier zijn praktische richtlijnen:
 
@@ -175,7 +195,7 @@ BlockAB doet dit automatisch via een statistische test (chi-kwadraat). Maar hier
 
 ---
 
-## 9. Tips voor goede tests
+## 10. Tips voor goede tests
 
 **Test één ding tegelijk**
 Verander alleen de headline, óf de knoptekst, óf de afbeelding. Niet meerdere dingen tegelijk — dan weet je niet wat het verschil maakte.
@@ -201,17 +221,17 @@ Noteer wat je getest hebt en wat je hebt geleerd. Dat helpt bij toekomstige test
           ↓
 2. Varianten aanmaken (A, B, C met namen en keys)
           ↓
-3. Test group key + variant keys doorgeven aan developer
+3. Blokken koppelen op de pagina (MIGX → A/B settings tab)
           ↓
-4. Developer koppelt MIGX blokken → jij zet test op Actief
+4. Test zetten op Actief in BlockAB
           ↓
 5. Test bewaken via statistieken (dagelijks of wekelijks)
           ↓
 6. Groene banner → winnaar bepalen → test stoppen
           ↓
-7. Winnaar doorgeven aan developer → test archiveren
+7. Verliezende blokken verwijderen → test archiveren
 ```
 
 ---
 
-*Vragen over de technische kant? Neem contact op met de developer.*
+*Technische vragen over installatie of sjablonen? Neem contact op met je developer.*
