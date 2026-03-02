@@ -15,8 +15,8 @@ set_time_limit(0);
 /* Define package */
 define('PKG_NAME', 'BlockAB');
 define('PKG_NAME_LOWER', 'blockab');
-define('PKG_VERSION', '1.0.0');
-define('PKG_RELEASE', 'beta1');
+define('PKG_VERSION', '1.1.0');
+define('PKG_RELEASE', 'pl');
 
 /* Define paths */
 $root = dirname(dirname(__FILE__)) . '/';
@@ -51,6 +51,7 @@ require_once $configCore;
 require_once MODX_CORE_PATH . 'model/modx/modx.class.php';
 
 $modx = new modX();
+$modx->initialize('mgr');
 $modx->setLogLevel(modX::LOG_LEVEL_INFO);
 $modx->setLogTarget('ECHO');
 

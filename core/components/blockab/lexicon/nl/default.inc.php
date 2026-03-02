@@ -13,6 +13,23 @@ $_lang['blockab.about'] = 'Over BlockAB';
 $_lang['blockab.about_text'] = "BlockAB — A/B test module voor MIGX blokken\n\nMet BlockAB stel je A/B tests in voor content blokken die via MIGX worden beheerd. Het systeem registreert weergaves en conversies per variant en berekent automatisch statistische significantie via een chi-kwadraat test.\n\n© 2026 Moving-in.nl";
 $_lang['blockab.manual'] = 'Handleiding';
 $_lang['blockab.manual_text'] = 'De documentatie van BlockAB is beschikbaar op GitHub:\nhttps://github.com/dimitrihilverda/blockab';
+$_lang['blockab.close'] = 'Sluiten';
+
+// About venster
+$_lang['blockab.about_intro'] = 'A/B test module voor MIGX content blokken in MODX Revolution.';
+$_lang['blockab.about_description'] = 'Met BlockAB stel je A/B tests in voor individuele content blokken. Het systeem registreert weergaves en conversies per variant en berekent automatisch statistische significantie via een chi-kwadraat test.';
+$_lang['blockab.about_feature_chi'] = 'Chi-kwadraat significantietest (95% &amp; 99% confidence)';
+$_lang['blockab.about_feature_smartoptimize'] = 'Smart Optimize &mdash; automatisch meer verkeer naar de winnaar';
+$_lang['blockab.about_feature_session'] = 'Session-gebaseerde variant persistentie';
+$_lang['blockab.about_feature_multiblock'] = 'Meerdere blokken per testgroep (volledige paginatest)';
+
+// Handleiding venster
+$_lang['blockab.manual_intro'] = 'De volledige documentatie van BlockAB staat op GitHub en bevat:';
+$_lang['blockab.manual_item_install'] = 'Installatie &amp; configuratie';
+$_lang['blockab.manual_item_migx'] = 'MIGX veld configuratie';
+$_lang['blockab.manual_item_template'] = 'Template integratie (Fenom)';
+$_lang['blockab.manual_item_snippets'] = 'Snippet documentatie (BlockAB, BlockABConversion)';
+$_lang['blockab.manual_item_troubleshooting'] = 'Troubleshooting';
 
 // Tests
 $_lang['blockab.test'] = 'Test';

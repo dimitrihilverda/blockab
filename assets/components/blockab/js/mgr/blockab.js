@@ -36,13 +36,13 @@ BlockAB.showAbout = function() {
             + '</div>'
             + '<div class="blockab-about-divider"></div>'
             + '<div class="blockab-about-body">'
-            +   '<p>A/B test module voor MIGX content blokken in MODX Revolution.</p>'
-            +   '<p>Met BlockAB stel je A/B tests in voor individuele content blokken. Het systeem registreert weergaves en conversies per variant en berekent automatisch statistische significantie via een chi-kwadraat test.</p>'
+            +   '<p>' + (_('blockab.about_intro') || 'A/B testing module for MIGX content blocks in MODX Revolution.') + '</p>'
+            +   '<p>' + (_('blockab.about_description') || 'BlockAB lets you set up A/B tests for individual content blocks.') + '</p>'
             +   '<ul class="blockab-about-features">'
-            +     '<li>Chi-kwadraat significantietest (95% &amp; 99% confidence)</li>'
-            +     '<li>Smart Optimize &mdash; automatisch meer verkeer naar de winnaar</li>'
-            +     '<li>Session-gebaseerde variant persistentie</li>'
-            +     '<li>Meerdere blokken per testgroep (volledige paginatest)</li>'
+            +     '<li>' + (_('blockab.about_feature_chi') || 'Chi-square significance test (95% &amp; 99% confidence)') + '</li>'
+            +     '<li>' + (_('blockab.about_feature_smartoptimize') || 'Smart Optimize &mdash; automatically send more traffic to the winner') + '</li>'
+            +     '<li>' + (_('blockab.about_feature_session') || 'Session-based variant persistence') + '</li>'
+            +     '<li>' + (_('blockab.about_feature_multiblock') || 'Multiple blocks per test group (full page test)') + '</li>'
             +   '</ul>'
             + '</div>'
             + '<div class="blockab-about-footer">'
@@ -52,7 +52,7 @@ BlockAB.showAbout = function() {
             + '</div>';
 
         BlockAB._aboutWindow = new Ext.Window({
-            title: _('blockab.about') || 'Over BlockAB',
+            title: _('blockab.about') || 'About BlockAB',
             width: 420,
             autoHeight: true,
             modal: true,
@@ -73,13 +73,13 @@ BlockAB.showAbout = function() {
 BlockAB.showManual = function() {
     if (!BlockAB._manualWindow) {
         var html = '<div class="blockab-manual-wrap">'
-            + '<p>De volledige documentatie van BlockAB staat op GitHub en bevat:</p>'
+            + '<p>' + (_('blockab.manual_intro') || 'The full BlockAB documentation is available on GitHub and covers:') + '</p>'
             + '<ul class="blockab-about-features">'
-            +   '<li>Installatie &amp; configuratie</li>'
-            +   '<li>MIGX veld configuratie</li>'
-            +   '<li>Template integratie (Fenom)</li>'
-            +   '<li>Snippet documentatie (BlockAB, BlockABConversion)</li>'
-            +   '<li>Troubleshooting</li>'
+            +   '<li>' + (_('blockab.manual_item_install') || 'Installation &amp; configuration') + '</li>'
+            +   '<li>' + (_('blockab.manual_item_migx') || 'MIGX field configuration') + '</li>'
+            +   '<li>' + (_('blockab.manual_item_template') || 'Template integration (Fenom)') + '</li>'
+            +   '<li>' + (_('blockab.manual_item_snippets') || 'Snippet documentation (BlockAB, BlockABConversion)') + '</li>'
+            +   '<li>' + (_('blockab.manual_item_troubleshooting') || 'Troubleshooting') + '</li>'
             + '</ul>'
             + '<div class="blockab-manual-link">'
             +   '<a href="https://github.com/dimitrihilverda/blockab" target="_blank" class="blockab-manual-btn">'
@@ -89,7 +89,7 @@ BlockAB.showManual = function() {
             + '</div>';
 
         BlockAB._manualWindow = new Ext.Window({
-            title: _('blockab.manual') || 'Handleiding',
+            title: _('blockab.manual') || 'Manual',
             width: 400,
             autoHeight: true,
             modal: true,
@@ -98,7 +98,7 @@ BlockAB.showManual = function() {
             bodyStyle: 'padding: 0; background: #fff;',
             html: html,
             buttons: [{
-                text: 'Sluiten',
+                text: _('blockab.close') || 'Close',
                 handler: function() { BlockAB._manualWindow.hide(); }
             }],
             buttonAlign: 'center'

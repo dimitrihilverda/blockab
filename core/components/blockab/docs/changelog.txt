@@ -29,5 +29,6 @@ BlockAB 1.1.0
 - Session-based conversion deduplication (page refresh no longer double-counts)
 - In-memory cache for variations and active tests (performance)
 - Fix: empty test group now correctly shows the block (fail-safe)
-- Babel-style page header with About and Handleiding buttons
+- Babel-style page header with About and Manual buttons
+- About and Manual window content moved to EN/NL lexicon
 - build.transport.php and build.simple.php accept MODX path as CLI argument
