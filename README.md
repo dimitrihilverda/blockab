@@ -4,12 +4,12 @@ A/B testing component for MODX Revolution that allows you to test individual MIG
 
 ## Features
 
-- 🎯 **Block-level testing** - Test individual MIGX blocks, not entire pages
-- 🧠 **Smart optimization** - Automatically show best-performing variants after threshold
-- ⚖️ **Weight-based distribution** - Control how often each variant is shown
-- 👤 **Session persistence** - Users see the same variant throughout their session
-- 📊 **Conversion tracking** - Track which variants lead to conversions
-- 🔧 **Easy integration** - Works seamlessly with existing MIGX workflows
+- **Block-level testing** - Test individual MIGX blocks, not entire pages
+- **Smart optimization** - Automatically show best-performing variants after threshold
+- **Weight-based distribution** - Control how often each variant is shown
+- **Session persistence** - Users see the same variant throughout their session
+- **Conversion tracking** - Track which variants lead to conversions
+- **Easy integration** - Works seamlessly with existing MIGX workflows
 
 ## Installation
 
@@ -115,7 +115,7 @@ This ensures you collect enough data before optimizing, while continuing to expl
 
 ## Development
 
-Built by [Moving-in.nl](https://moving-in.nl)
+Built by Dimitri Hilverda [Moving-in.nl](https://moving-in.nl)
 
 ### Building from source
 
