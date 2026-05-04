@@ -2,18 +2,18 @@ Changelog for BlockAB
 
 BlockAB 1.1.4
 ====================================
-- Fix: preview-knop wordt voortaan in de top action-bar van de resource-edit pagina geinjecteerd (naast Opslaan/Bekijk/etc.) ipv boven het eerste TV op de pagina, wat soms op een verkeerde tab uitkwam
-- Fix: BlockABMigxCascade plugin laadt voortaan de blockab lexicon-strings in MODx.lang zodat de preview-knop niet "undefined" toont op resource-edit pagina's
-- preview-button.js krijgt fallback-strings zodat een ontbrekende lexicon-load niet meer leidt tot lege of "undefined" UI
+- Fix: preview button is now injected into the resource's top action-bar (next to Save / View / etc.) instead of above the first MIGX TV on the page — the previous placement could land on the wrong tab when a resource had multiple MIGX TVs
+- Fix: BlockABMigxCascade plugin now loads the blockab lexicon strings into MODx.lang so the preview button renders its label instead of "undefined" on the resource edit page
+- preview-button.js gets a _t(key, fallback) helper to keep the UI readable if the lexicon topic ever fails to load
 
 BlockAB 1.1.3
 ====================================
-- Manager variant preview: knop op resource-edit pagina (boven MIGX-grid) opent modal met dropdown per ab_test_group, "Preview openen" opent de resource met ?ab_<group>=<variant> overrides in nieuw tabblad
-- BlockAB::shouldShowBlock() respecteert GET-overrides voor users met view_unpublished permission, zonder babPick of session-write
-- Nieuwe processor mgr/test/getvariantsforpreview voor de modal
-- Fix: BlockABMigxCascade plugin wordt voortaan door het transport-pakket geinstalleerd (was in 1.1.0/1.1.1/1.1.2 niet meegenomen)
-- Plugin laadt zowel de bestaande migx-cascade.js als de nieuwe preview-button.js op OnDocFormPrerender
-- 7 nieuwe lexicon-strings (NL + EN)
+- Manager variant preview: button on the resource edit page opens a modal with one dropdown per ab_test_group; "Open preview" opens the resource in a new tab with ?ab_<group>=<variant> overrides applied
+- BlockAB::shouldShowBlock() honours GET overrides for users with the view_unpublished permission without writing a babPick or session entry, so manager previews don't pollute test stats
+- New processor mgr/test/getvariantsforpreview backs the modal
+- Fix: BlockABMigxCascade plugin is now installed by the transport package (was missing from 1.1.0 / 1.1.1 / 1.1.2 — only present in staging because it had been created manually)
+- Plugin now loads both the existing migx-cascade.js and the new preview-button.js on OnDocFormPrerender
+- 7 new lexicon strings (NL + EN)
 
 BlockAB 1.1.2
 ====================================
@@ -21,8 +21,8 @@ BlockAB 1.1.2
 
 BlockAB 1.1.1
 ====================================
-- Fix: home panel rendert leeg op installs zonder geregistreerd modAction record (renderTo expliciet op blockab-panel-home-div)
-- Fix: test.class.php checkPermissions gebruikte niet-bestaande view_component permission (zelfde fix als home.class.php)
+- Fix: home panel rendered empty on installs without a registered modAction record (added explicit renderTo on blockab-panel-home-div)
+- Fix: test.class.php checkPermissions referenced the non-existent view_component permission (same fix as home.class.php)
 
 BlockAB 1.0.0-beta1
 ====================================
