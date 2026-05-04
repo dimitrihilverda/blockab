@@ -15,7 +15,7 @@ set_time_limit(0);
 /* Define package */
 define('PKG_NAME', 'BlockAB');
 define('PKG_NAME_LOWER', 'blockab');
-define('PKG_VERSION', '1.1.11');
+define('PKG_VERSION', '1.1.12');
 define('PKG_RELEASE', 'pl');
 
 /* Define paths */
@@ -137,6 +137,13 @@ $pluginEvents[0] = $modx->newObject('modPluginEvent');
 $pluginEvents[0]->fromArray(array(
     'pluginid'    => 1,
     'event'       => 'OnDocFormPrerender',
+    'priority'    => 0,
+    'propertyset' => 0,
+), '', true, true);
+$pluginEvents[1] = $modx->newObject('modPluginEvent');
+$pluginEvents[1]->fromArray(array(
+    'pluginid'    => 1,
+    'event'       => 'OnLoadWebDocument',
     'priority'    => 0,
     'propertyset' => 0,
 ), '', true, true);

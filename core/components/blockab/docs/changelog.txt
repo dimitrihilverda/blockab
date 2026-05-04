@@ -1,5 +1,9 @@
 Changelog for BlockAB
 
+BlockAB 1.1.12
+====================================
+- Fix: preview URLs (?ab_<group>=<variant>) now bypass the page cache for users with view_unpublished. Without this, MODX could serve a previously-cached render and the manager would see an old variant. Plugin BlockABMigxCascade now also listens on OnLoadWebDocument and sets $modx->resource->_cacheable = false when a preview override is present.
+
 BlockAB 1.1.11
 ====================================
 - Hover menu rebuilds its items on every show, so dirty-state and MIGX block changes (e.g. adding a second variant to a block, or saving a single block via the MIGX edit modal) are reflected immediately without needing a full resource save first.

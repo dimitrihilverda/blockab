@@ -2,8 +2,12 @@
 /**
  * BlockAB MIGX Cascade Plugin
  *
- * Loads the variant cascade dropdown JS, the preview-button JS, and
- * blockab lexicon strings on resource edit pages (OnDocFormPrerender).
+ * Manager side (OnDocFormPrerender):
+ *   - loads cascade JS + preview-button JS + lexicon strings
+ * Web side (OnLoadWebDocument):
+ *   - if a preview override param (?ab_<group>=<variant>) is present AND
+ *     the visitor has view_unpublished, mark the resource as non-cacheable
+ *     so the manager always sees a fresh render of the chosen variant
  *
  * @package blockab
  */
@@ -32,6 +36,28 @@ switch ($modx->event->name) {
 
         $modx->regClientStartupScript($assetsUrl . 'js/mgr/migx-cascade.js');
         $modx->regClientStartupScript($assetsUrl . 'js/mgr/preview-button.js');
+        break;
+
+    case 'OnLoadWebDocument':
+        // Detect any ab_<group>= preview override in the query string
+        $hasOverride = false;
+        foreach ($_GET as $key => $value) {
+            if (strpos($key, 'ab_') === 0 && $value !== '') {
+                $hasOverride = true;
+                break;
+            }
+        }
+        if ($hasOverride && $modx->hasPermission('view_unpublished')) {
+            if (isset($modx->resource) && is_object($modx->resource)) {
+                // Skip the page cache for this request — manager preview
+                // must render the chosen variant fresh, not whatever
+                // happened to be cached earlier.
+                $modx->resource->_cacheable = false;
+                if (method_exists($modx->resource, 'set')) {
+                    $modx->resource->set('cacheable', false);
+                }
+            }
+        }
         break;
 }
 return '';
