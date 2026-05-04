@@ -1,5 +1,10 @@
 Changelog for BlockAB
 
+BlockAB 1.1.1
+====================================
+- Fix: home panel rendert leeg op installs zonder geregistreerd modAction record (renderTo expliciet op blockab-panel-home-div)
+- Fix: test.class.php checkPermissions gebruikte niet-bestaande view_component permission (zelfde fix als home.class.php)
+
 BlockAB 1.0.0-beta1
 ====================================
 - Initial release

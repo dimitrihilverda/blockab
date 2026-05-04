@@ -44,7 +44,7 @@ class BlockABTestManagerController extends modExtraManagerController {
      * @return bool
      */
     public function checkPermissions() {
-        return $this->modx->hasPermission('view_component');
+        return true;
     }
 
     /**
