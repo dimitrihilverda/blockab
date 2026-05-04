@@ -80,6 +80,30 @@ class BlockAB {
     }
 
     /**
+     * Get preview override variant from GET parameter (manager-only).
+     *
+     * Returns the variant_key from $_GET['ab_<test_group>'] when the current
+     * user has 'view_unpublished' permission. Returns null otherwise.
+     * Sudo users always pass MODX permission checks.
+     *
+     * @param string $testGroup
+     * @return string|null
+     */
+    public function getPreviewOverride($testGroup) {
+        if (empty($testGroup)) {
+            return null;
+        }
+        if (!$this->modx->hasPermission('view_unpublished')) {
+            return null;
+        }
+        $key = 'ab_' . $testGroup;
+        if (!isset($_GET[$key]) || $_GET[$key] === '') {
+            return null;
+        }
+        return (string)$_GET[$key];
+    }
+
+    /**
      * Get user session data
      *
      * @return array
@@ -105,6 +129,19 @@ class BlockAB {
         // Als geen test group, altijd tonen
         if (empty($testGroup)) {
             return true;
+        }
+
+        // Manager preview override — bypasses random pick + session
+        $override = $this->getPreviewOverride($testGroup);
+        if ($override !== null) {
+            $this->lastPickDetails = array(
+                'test'       => null,
+                'mode'       => 'preview',
+                'pick'       => null,
+                'variation'  => null,
+                'variations' => array(),
+            );
+            return ((string)$override === (string)$variantKey);
         }
 
         // Haal actieve test op voor deze group
