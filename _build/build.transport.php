@@ -15,7 +15,7 @@ set_time_limit(0);
 /* Define package */
 define('PKG_NAME', 'BlockAB');
 define('PKG_NAME_LOWER', 'blockab');
-define('PKG_VERSION', '1.1.13');
+define('PKG_VERSION', '1.1.14');
 define('PKG_RELEASE', 'pl');
 
 /* Define paths */
@@ -114,6 +114,14 @@ $snippets[3]->fromArray(array(
     'name' => 'BlockABGetVariants',
     'description' => 'Returns available variants for a specific test group for use in MIGX dropdowns',
     'snippet' => blockab_load_snippet($sources['source_core'] . '/elements/snippets/blockab.getvariants.snippet.php'),
+), '', true, true);
+
+$snippets[4] = $modx->newObject('modSnippet');
+$snippets[4]->fromArray(array(
+    'id' => 5,
+    'name' => 'BlockABTestName',
+    'description' => 'Resolves an ab_test_group key to the test\'s display name (handy in MIGX renderChunk templates)',
+    'snippet' => blockab_load_snippet($sources['source_core'] . '/elements/snippets/blockab.testname.snippet.php'),
 ), '', true, true);
 
 if (count($snippets) > 0) {

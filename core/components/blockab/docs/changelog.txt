@@ -1,5 +1,9 @@
 Changelog for BlockAB
 
+BlockAB 1.1.14
+====================================
+- New snippet BlockABTestName: resolves an ab_test_group key to the test's display name. Intended for MIGX renderChunk templates so the grid can show "Eerste test / A" instead of "eerste_test / A". Usage: [[BlockABTestName? &group=`[[+ab_test_group]]`]] / [[+ab_test_variant]]. Falls back to the group key when no matching test exists.
+
 BlockAB 1.1.13
 ====================================
 - Polish: hover menu and combine modal now display the test's Name (e.g. "Eerste test") instead of the technical test_group key (e.g. "eerste_test"). Falls back to the test_group key if no Name is set. Same change applies to the combine modal's field labels. Required a small change to the getvariantsforpreview processor response shape: each group now returns { name, variants: [...] } instead of the bare variants array.
