@@ -1,5 +1,11 @@
 Changelog for BlockAB
 
+BlockAB 1.1.11
+====================================
+- Hover menu rebuilds its items on every show, so dirty-state and MIGX block changes (e.g. adding a second variant to a block, or saving a single block via the MIGX edit modal) are reflected immediately without needing a full resource save first.
+- Subtle dirty-state notice (⚠ + qtip with full sentence) appears at the top of the hover menu when the resource has unsaved changes — same information as the modal warning, but compact.
+- Added blockab.preview_dirty_short lexicon string (NL + EN).
+
 BlockAB 1.1.10
 ====================================
 - Polish: variant submenu and combine modal now only list variants that are actually placed in the resource's MIGX blocks. If the test defines A/B/C/D but the resource only uses A and B, only A and B appear as preview options. Same filter applies to the combine modal dropdowns.

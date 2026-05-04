@@ -118,6 +118,18 @@
     function buildMenuItems(groups, variantsByGroup, usage, resourceUri) {
         var items = [];
 
+        // Subtle dirty-state notice — same info as the modal warning, but
+        // compact enough to fit a menu item. Hover for the full sentence.
+        if (isFormDirty()) {
+            items.push({
+                text: '⚠ ' + _t('blockab.preview_dirty_short', 'Resource niet opgeslagen'),
+                disabled: true,
+                qtip: _t('blockab.preview_dirty_warning',
+                    'Sla de resource eerst op om nieuwe blokken in de preview te zien')
+            });
+            items.push('-');
+        }
+
         groups.forEach(function (g) {
             var allVariants = variantsByGroup[g] || [];
             var usedKeys = usage[g] || [];
@@ -247,6 +259,27 @@
         return found;
     }
 
+    /** Cached variants per group, so we don't re-fetch on every hover.
+     *  Reset (set to null) when the toolbar is rebuilt and a new button
+     *  is injected. Keeps a stale entry around for previously-known groups
+     *  even after MIGX changes — fresh menu builds will simply skip groups
+     *  that don't have cached variants until the next page load. */
+    var cachedVariants = null;
+
+    function applyMenu(btn, resourceUri) {
+        if (!btn || !btn.menu) return;
+        var freshUsage = collectGroupVariantUsage(findMigxTextareas());
+        var freshGroups = Object.keys(freshUsage);
+        var newItems = buildMenuItems(freshGroups, cachedVariants || {}, freshUsage, resourceUri);
+        // Empty menu would close immediately on hover — ensure we always
+        // have at least one item.
+        if (!newItems.length) {
+            newItems = [{ text: _t('blockab.preview_loading', 'Laden...'), disabled: true }];
+        }
+        btn.menu.removeAll();
+        newItems.forEach(function (item) { btn.menu.add(item); });
+    }
+
     function injectButton() {
         // No double-inject if we're already in the toolbar
         if (buttonInToolbar()) return;
@@ -275,7 +308,13 @@
             id: 'blockab-preview-button',
             text: _t('blockab.preview_button', 'Preview varianten'),
             menu: new Ext.menu.Menu({
-                items: [{ text: _t('blockab.preview_loading', 'Laden...'), disabled: true }]
+                items: [{ text: _t('blockab.preview_loading', 'Laden...'), disabled: true }],
+                listeners: {
+                    // Re-build items on every hover so dirty state, MIGX
+                    // additions, and variant placement updates are always
+                    // current — without re-fetching variants from the DB.
+                    beforeshow: function () { applyMenu(btn, resourceUri); }
+                }
             }),
             listeners: {
                 mouseover: function (b) { b.showMenu(); }
@@ -289,11 +328,10 @@
         fetchInFlight = true;
         fetchVariants(groups, function (variantsByGroup) {
             fetchInFlight = false;
+            cachedVariants = variantsByGroup;
             var liveBtn = Ext.getCmp('blockab-preview-button');
             if (!liveBtn) return; // toolbar got rebuilt while AJAX was in flight
-            var newItems = buildMenuItems(groups, variantsByGroup, usage, resourceUri);
-            if (liveBtn.menu) { liveBtn.menu.destroy(); }
-            liveBtn.menu = new Ext.menu.Menu({ items: newItems });
+            applyMenu(liveBtn, resourceUri);
         });
     }
 

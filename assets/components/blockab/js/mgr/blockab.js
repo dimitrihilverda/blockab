@@ -31,7 +31,7 @@ BlockAB.showAbout = function() {
             +   '<img src="' + assetsUrl + 'img/moving-it.svg" class="blockab-about-logo" alt="Moving-IT">'
             +   '<div class="blockab-about-appinfo">'
             +     '<span class="blockab-about-appname"><span class="blockab-title-block">Block</span><span class="blockab-title-ab">AB</span></span>'
-            +     '<span class="blockab-about-version">v1.1.10</span>'
+            +     '<span class="blockab-about-version">v1.1.11</span>'
             +   '</div>'
             + '</div>'
             + '<div class="blockab-about-divider"></div>'

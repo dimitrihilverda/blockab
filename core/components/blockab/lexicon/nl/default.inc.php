@@ -135,3 +135,4 @@ $_lang['blockab.preview_site_default'] = 'Site default (geen override)';
 $_lang['blockab.preview_combine'] = 'Combineer varianten...';
 $_lang['blockab.preview_loading'] = 'Laden...';
 $_lang['blockab.preview_no_variants'] = 'Geen actieve test voor deze groep';
+$_lang['blockab.preview_dirty_short'] = 'Resource niet opgeslagen';

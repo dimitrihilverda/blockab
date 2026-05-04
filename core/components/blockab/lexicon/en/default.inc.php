@@ -135,3 +135,4 @@ $_lang['blockab.preview_site_default'] = 'Site default (no override)';
 $_lang['blockab.preview_combine'] = 'Combine variants...';
 $_lang['blockab.preview_loading'] = 'Loading...';
 $_lang['blockab.preview_no_variants'] = 'No active test for this group';
+$_lang['blockab.preview_dirty_short'] = 'Resource not saved';
