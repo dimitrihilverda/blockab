@@ -1,5 +1,14 @@
 Changelog for BlockAB
 
+BlockAB 1.1.3
+====================================
+- Manager variant preview: knop op resource-edit pagina (boven MIGX-grid) opent modal met dropdown per ab_test_group, "Preview openen" opent de resource met ?ab_<group>=<variant> overrides in nieuw tabblad
+- BlockAB::shouldShowBlock() respecteert GET-overrides voor users met view_unpublished permission, zonder babPick of session-write
+- Nieuwe processor mgr/test/getvariantsforpreview voor de modal
+- Fix: BlockABMigxCascade plugin wordt voortaan door het transport-pakket geinstalleerd (was in 1.1.0/1.1.1/1.1.2 niet meegenomen)
+- Plugin laadt zowel de bestaande migx-cascade.js als de nieuwe preview-button.js op OnDocFormPrerender
+- 7 nieuwe lexicon-strings (NL + EN)
+
 BlockAB 1.1.2
 ====================================
 - Fix: build.transport.php strips leading <?php from snippet sources before storing in DB. MODX evals snippet bodies, so a leading <?php tag ended up double-wrapped in the cached include file (parse error: unexpected '<' on line 2). Affected all 4 snippets — most visibly BlockABGetTestGroups, used as @EVAL in MIGX dropdowns, which crashed the resource MIGX edit window.
