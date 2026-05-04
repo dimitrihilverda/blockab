@@ -1,5 +1,9 @@
 Changelog for BlockAB
 
+BlockAB 1.1.7
+====================================
+- Fix: visits by users with an active manager session no longer write to babPick or babConversion. Manager preview / QA / editors visiting their own thank-you page must not pollute test stats. Gate is hasSessionContext('mgr'), checked in pickOne() (skips registerPick) and at the top of registerConversion() (early return with debug log line "SKIP: ingelogde manager").
+
 BlockAB 1.1.6
 ====================================
 - Preview button is now a proper Ext hover-menu (same UX as Babel's language switcher): hover the button → submenu per ab_test_group → click a variant to open the resource in a new tab with that single variant active

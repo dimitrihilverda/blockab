@@ -80,6 +80,19 @@ class BlockAB {
     }
 
     /**
+     * True when the current visitor is logged into the MODX manager.
+     * Used to keep manager-side previews (and any other manager browsing)
+     * from polluting babPick / babConversion stats.
+     *
+     * @return bool
+     */
+    protected function isManagerSession() {
+        if (!$this->modx || !$this->modx->user) return false;
+        if (!method_exists($this->modx->user, 'hasSessionContext')) return false;
+        return (bool)$this->modx->user->hasSessionContext('mgr');
+    }
+
+    /**
      * Get preview override variant from GET parameter (manager-only).
      *
      * Returns the variant_key from $_GET['ab_<test_group>'] when the current
@@ -327,7 +340,7 @@ class BlockAB {
                 $mode = 'bestpick';
             }
 
-            if ($theOne) {
+            if ($theOne && !$this->isManagerSession()) {
                 $this->registerPick($testId, $theOne);
             }
         }
@@ -444,6 +457,19 @@ class BlockAB {
      * @return array Debug info (session data, log, conversions saved)
      */
     public function registerConversion($tests) {
+        // Skip for logged-in managers — manager visits (preview, QA,
+        // editor opening their own thank-you page) must not pollute
+        // conversion stats.
+        if ($this->isManagerSession()) {
+            return array(
+                'session_found'     => false,
+                'session_data'      => array(),
+                'tests_param'       => $tests,
+                'log'               => array('SKIP: ingelogde manager — geen conversie geregistreerd'),
+                'conversions_saved' => 0,
+            );
+        }
+
         $userData = $this->getUserData();
         $visitedTests = $userData['_picked'] ?? array();
 
