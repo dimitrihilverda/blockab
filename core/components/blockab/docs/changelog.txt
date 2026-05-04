@@ -1,5 +1,13 @@
 Changelog for BlockAB
 
+BlockAB 1.1.6
+====================================
+- Preview button is now a proper Ext hover-menu (same UX as Babel's language switcher): hover the button → submenu per ab_test_group → click a variant to open the resource in a new tab with that single variant active
+- Multiple ab_test_groups in one resource: each gets its own submenu, clicking a variant overrides only that group
+- "Combineer varianten..." menu item still opens the form modal for picking a combination across multiple groups
+- Combine modal got more horizontal room (620px wide, 240px label width) so longer test_group names fit comfortably
+- 3 new lexicon strings (blockab.preview_combine, blockab.preview_loading, blockab.preview_no_variants — NL + EN)
+
 BlockAB 1.1.5
 ====================================
 - Fix: preview button is now added as an Ext.Button to the modx-action-buttons toolbar (via toolbar.insertButton(0, [...]) + doLayout) instead of as raw HTML next to it. Same pattern as Babel's language switcher. The button now lines up correctly inside the toolbar regardless of theme or other plugins.

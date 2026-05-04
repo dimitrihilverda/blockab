@@ -132,3 +132,6 @@ $_lang['blockab.preview_cancel'] = 'Cancel';
 $_lang['blockab.preview_no_groups'] = 'No A/B test groups found in this resource';
 $_lang['blockab.preview_dirty_warning'] = 'Save the resource first to include new blocks in the preview';
 $_lang['blockab.preview_site_default'] = 'Site default (no override)';
+$_lang['blockab.preview_combine'] = 'Combine variants...';
+$_lang['blockab.preview_loading'] = 'Loading...';
+$_lang['blockab.preview_no_variants'] = 'No active test for this group';

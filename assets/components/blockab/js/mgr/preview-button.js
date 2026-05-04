@@ -1,11 +1,14 @@
 /**
  * BlockAB Preview Button
  *
- * Injects a "Preview varianten" button above the first MIGX TV on the
- * resource edit page. On click, reads live MIGX state, fetches variants
- * per ab_test_group, and opens a modal with one combobox per group.
- * "Open preview" builds a URL with ?ab_<group>=<variant> overrides and
- * opens it in a new tab.
+ * Adds a "Preview varianten" Ext.Button to the resource edit page's
+ * top toolbar (modx-action-buttons). On hover, the button opens a
+ * menu with one submenu per ab_test_group; clicking a variant opens
+ * the resource in a new tab with ?ab_<group>=<variant> applied.
+ * The "Combineer varianten..." item opens a modal that lets the
+ * manager pick a combination of variants across multiple groups.
+ *
+ * Same toolbar-integration pattern as Babel's language switcher.
  */
 (function () {
     'use strict';
@@ -16,15 +19,14 @@
 
     var buttonInjected = false;
 
-    /** Lexicon helper with fallback for when the topic isn't loaded yet. */
     function _t(key, fallback) {
         var v = (typeof _ === 'function') ? _(key) : null;
         if (v === undefined || v === null || v === '' || v === key) return fallback;
         return v;
     }
 
-    /** Find all MIGX TV textareas on the page. Identified by JSON value
-     *  that is an array whose first element has a MIGX_id field. */
+    /** Find all MIGX TV textareas. Recognised by JSON value that is an
+     *  array whose first element has a MIGX_id field. */
     function findMigxTextareas() {
         var nodes = document.querySelectorAll('textarea[id^="tv"]');
         var migx = [];
@@ -63,6 +65,15 @@
         return !!(fp && fp.isDirty && fp.isDirty());
     }
 
+    function getResourceUri() {
+        var resourceId = (MODx.request && MODx.request.id)
+            ? MODx.request.id : null;
+        if (!resourceId) return null;
+        var siteUrl = MODx.config.site_url;
+        if (siteUrl.charAt(siteUrl.length - 1) !== '/') siteUrl += '/';
+        return siteUrl + 'index.php?id=' + resourceId;
+    }
+
     function buildPreviewUrl(resourceUri, choices) {
         var params = [];
         Object.keys(choices).forEach(function (group) {
@@ -76,13 +87,71 @@
         return resourceUri + sep + params.join('&');
     }
 
-    function openModal(groups, variantsByGroup, resourceUri) {
+    function fetchVariants(groups, callback) {
+        Ext.Ajax.request({
+            url: connectorUrl,
+            method: 'POST',
+            params: {
+                action: 'mgr/test/getvariantsforpreview',
+                groups: groups.join(',')
+            },
+            success: function (resp) {
+                var data = null;
+                try { data = Ext.decode(resp.responseText); } catch (e) {}
+                callback((data && data.object && data.object.groups) || {});
+            },
+            failure: function () { callback({}); }
+        });
+    }
+
+    function buildMenuItems(groups, variantsByGroup, resourceUri) {
+        var items = [];
+
+        groups.forEach(function (g) {
+            var variants = variantsByGroup[g] || [];
+            if (!variants.length) {
+                items.push({
+                    text: g,
+                    disabled: true,
+                    qtip: _t('blockab.preview_no_variants', 'Geen actieve test voor deze groep')
+                });
+                return;
+            }
+            var subItems = variants.map(function (v) {
+                return {
+                    text: v.key + ' — ' + v.name,
+                    handler: function () {
+                        var choices = {};
+                        choices[g] = v.key;
+                        window.open(buildPreviewUrl(resourceUri, choices), '_blank');
+                    }
+                };
+            });
+            items.push({
+                text: g,
+                menu: { items: subItems }
+            });
+        });
+
+        items.push('-');
+        items.push({
+            text: _t('blockab.preview_combine', 'Combineer varianten...'),
+            handler: function () {
+                openCombineModal(groups, variantsByGroup, resourceUri);
+            }
+        });
+
+        return items;
+    }
+
+    function openCombineModal(groups, variantsByGroup, resourceUri) {
         var formItems = [];
         if (isFormDirty()) {
             formItems.push({
                 xtype: 'displayfield',
                 hideLabel: true,
-                value: _t('blockab.preview_dirty_warning', 'Sla de resource eerst op om nieuwe blokken in de preview te zien'),
+                value: _t('blockab.preview_dirty_warning',
+                    'Sla de resource eerst op om nieuwe blokken in de preview te zien'),
                 style: 'color:#b6862e; padding:4px 0 8px 0; font-style:italic;'
             });
         }
@@ -106,7 +175,7 @@
                 value: '',
                 editable: false,
                 triggerAction: 'all',
-                width: 220,
+                width: 280,
                 listeners: {
                     select: function (combo, record) {
                         choices[g] = record.get('key');
@@ -118,11 +187,12 @@
         var win = new Ext.Window({
             title: _t('blockab.preview_modal_title', 'Variant-combinatie kiezen'),
             modal: true,
-            width: 440,
+            width: 620,
             autoHeight: true,
             layout: 'form',
-            padding: 12,
-            labelWidth: 160,
+            padding: 16,
+            labelWidth: 240,
+            labelStyle: 'padding-right:12px;',
             items: formItems,
             buttons: [{
                 text: _t('blockab.preview_cancel', 'Annuleren'),
@@ -130,8 +200,7 @@
             }, {
                 text: _t('blockab.preview_open', 'Preview openen'),
                 handler: function () {
-                    var url = buildPreviewUrl(resourceUri, choices);
-                    window.open(url, '_blank');
+                    window.open(buildPreviewUrl(resourceUri, choices), '_blank');
                     win.close();
                 }
             }],
@@ -140,81 +209,57 @@
         win.show();
     }
 
-    function onPreviewClick() {
-        var textareas = findMigxTextareas();
-        var groups = collectTestGroups(textareas);
-
-        var resourceId = (MODx.request && MODx.request.id)
-            ? MODx.request.id : null;
-        if (!resourceId) {
-            Ext.Msg.alert('BlockAB', 'Kon resource-ID niet bepalen.');
-            return;
-        }
-        var siteUrl = MODx.config.site_url;
-        if (siteUrl.charAt(siteUrl.length - 1) !== '/') siteUrl += '/';
-        var resourceUri = siteUrl + 'index.php?id=' + resourceId;
-
-        if (!groups.length) {
-            Ext.Msg.alert(
-                _t('blockab.preview_modal_title', 'Variant-combinatie kiezen'),
-                _t('blockab.preview_no_groups', 'Geen A/B-test groepen gevonden in deze resource')
-            );
-            return;
-        }
-
-        Ext.Ajax.request({
-            url: connectorUrl,
-            method: 'POST',
-            params: {
-                action: 'mgr/test/getvariantsforpreview',
-                groups: groups.join(',')
-            },
-            success: function (resp) {
-                var data = null;
-                try { data = Ext.decode(resp.responseText); } catch (e) {}
-                var byGroup = (data && data.object && data.object.groups) || {};
-                openModal(groups, byGroup, resourceUri);
-            },
-            failure: function () {
-                Ext.Msg.alert('BlockAB', 'Kon variants niet laden (HTTP-fout).');
-            }
-        });
-    }
-
     function injectButton() {
         if (buttonInjected) return;
 
-        // Only inject on resource pages that contain at least one MIGX TV
-        if (!findMigxTextareas().length) return;
+        var textareas = findMigxTextareas();
+        if (!textareas.length) return;
 
-        // Use the Ext toolbar approach (same pattern as Babel's language switcher)
+        var groups = collectTestGroups(textareas);
+        if (!groups.length) return;
+
         var toolbar = Ext.getCmp('modx-action-buttons');
         if (!toolbar) return;
 
-        // Don't double-inject if some other path already created the button
         var existing = Ext.getCmp('blockab-preview-button');
         if (existing) { existing.destroy(); }
 
+        var resourceUri = getResourceUri();
+        if (!resourceUri) return;
+
+        // Inject with a "loading" stub menu, then replace items once
+        // the variants AJAX returns. Pattern: same as Babel's switcher.
         var btn = new Ext.Button({
             id: 'blockab-preview-button',
             text: _t('blockab.preview_button', 'Preview varianten'),
-            handler: onPreviewClick
+            menu: new Ext.menu.Menu({
+                items: [{ text: _t('blockab.preview_loading', 'Laden...'), disabled: true }]
+            }),
+            listeners: {
+                mouseover: function (b) { b.showMenu(); }
+            }
         });
 
-        // Insert at position 0 (leftmost) — sits next to Save / View / etc.
         toolbar.insertButton(0, [btn]);
         toolbar.doLayout();
         buttonInjected = true;
+
+        fetchVariants(groups, function (variantsByGroup) {
+            var newItems = buildMenuItems(groups, variantsByGroup, resourceUri);
+            // Recreate menu to ensure clean state
+            if (btn.menu) {
+                btn.menu.destroy();
+            }
+            btn.menu = new Ext.menu.Menu({ items: newItems });
+        });
     }
 
     function init() {
         injectButton();
-        // MIGX renders async — keep observing until we've injected
         var observer = new MutationObserver(function () {
             if (!buttonInjected) injectButton();
         });
         observer.observe(document.body, { childList: true, subtree: true });
-        // Stop observing after 10s to avoid leaving observers attached forever
         setTimeout(function () { observer.disconnect(); }, 10000);
     }
 
