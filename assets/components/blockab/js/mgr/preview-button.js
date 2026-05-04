@@ -187,23 +187,23 @@
         // Only inject on resource pages that contain at least one MIGX TV
         if (!findMigxTextareas().length) return;
 
-        // Target: top action-buttons toolbar (sits next to Save/Delete/etc.)
-        var container = document.getElementById('modx-action-buttons-container');
-        if (!container) return;
+        // Use the Ext toolbar approach (same pattern as Babel's language switcher)
+        var toolbar = Ext.getCmp('modx-action-buttons');
+        if (!toolbar) return;
 
-        var wrap = document.createElement('span');
-        wrap.className = 'blockab-preview-button-wrap';
-        wrap.style.cssText = 'display:inline-block; margin:0 8px 0 0; vertical-align:middle;';
-        wrap.innerHTML = '<button type="button" '
-            + 'style="background:#4a90e2;color:#fff;border:none;'
-            + 'padding:5px 12px;border-radius:3px;cursor:pointer;'
-            + 'font-size:12px;font-weight:bold;">'
-            + _t('blockab.preview_button', 'Preview varianten')
-            + '</button>';
+        // Don't double-inject if some other path already created the button
+        var existing = Ext.getCmp('blockab-preview-button');
+        if (existing) { existing.destroy(); }
 
-        // Insert at the start of the action-buttons container (left side)
-        container.insertBefore(wrap, container.firstChild);
-        wrap.querySelector('button').addEventListener('click', onPreviewClick);
+        var btn = new Ext.Button({
+            id: 'blockab-preview-button',
+            text: _t('blockab.preview_button', 'Preview varianten'),
+            handler: onPreviewClick
+        });
+
+        // Insert at position 0 (leftmost) — sits next to Save / View / etc.
+        toolbar.insertButton(0, [btn]);
+        toolbar.doLayout();
         buttonInjected = true;
     }
 

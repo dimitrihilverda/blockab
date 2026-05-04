@@ -1,5 +1,9 @@
 Changelog for BlockAB
 
+BlockAB 1.1.5
+====================================
+- Fix: preview button is now added as an Ext.Button to the modx-action-buttons toolbar (via toolbar.insertButton(0, [...]) + doLayout) instead of as raw HTML next to it. Same pattern as Babel's language switcher. The button now lines up correctly inside the toolbar regardless of theme or other plugins.
+
 BlockAB 1.1.4
 ====================================
 - Fix: preview button is now injected into the resource's top action-bar (next to Save / View / etc.) instead of above the first MIGX TV on the page — the previous placement could land on the wrong tab when a resource had multiple MIGX TVs
