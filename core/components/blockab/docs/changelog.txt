@@ -1,5 +1,9 @@
 Changelog for BlockAB
 
+BlockAB 1.1.10
+====================================
+- Polish: variant submenu and combine modal now only list variants that are actually placed in the resource's MIGX blocks. If the test defines A/B/C/D but the resource only uses A and B, only A and B appear as preview options. Same filter applies to the combine modal dropdowns.
+
 BlockAB 1.1.9
 ====================================
 - Polish: "Combineer varianten..." menu item now only appears when the resource has 2 or more ab_test_groups. With a single group there is nothing to combine, so the divider + item are hidden.

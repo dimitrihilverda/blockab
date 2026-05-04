@@ -45,20 +45,30 @@
         return migx;
     }
 
-    /** Collect unique non-empty ab_test_group values across all MIGX TVs. */
-    function collectTestGroups(textareas) {
-        var seen = {};
+    /** Walk all MIGX TVs and return per-group which variant keys are
+     *  actually placed in the resource. Blocks without an ab_test_variant
+     *  are ignored — they are incomplete configurations and there is
+     *  nothing to preview for them.
+     *  @returns {Object<string, string[]>} { group_key: [variant_keys...] } */
+    function collectGroupVariantUsage(textareas) {
+        var usage = {};
         textareas.forEach(function (ta) {
             try {
                 var items = JSON.parse(ta.value);
                 items.forEach(function (item) {
-                    if (item && item.ab_test_group) {
-                        seen[item.ab_test_group] = true;
-                    }
+                    if (!item || !item.ab_test_group || !item.ab_test_variant) return;
+                    var g = item.ab_test_group;
+                    var v = String(item.ab_test_variant);
+                    if (!usage[g]) usage[g] = {};
+                    usage[g][v] = true;
                 });
             } catch (e) { /* ignore */ }
         });
-        return Object.keys(seen);
+        var result = {};
+        Object.keys(usage).forEach(function (g) {
+            result[g] = Object.keys(usage[g]);
+        });
+        return result;
     }
 
     function isFormDirty() {
@@ -105,12 +115,18 @@
         });
     }
 
-    function buildMenuItems(groups, variantsByGroup, resourceUri) {
+    function buildMenuItems(groups, variantsByGroup, usage, resourceUri) {
         var items = [];
 
         groups.forEach(function (g) {
-            var variants = variantsByGroup[g] || [];
-            if (!variants.length) {
+            var allVariants = variantsByGroup[g] || [];
+            var usedKeys = usage[g] || [];
+            // Only show variants that are both defined in the test AND
+            // actually placed in this resource's MIGX blocks.
+            var available = allVariants.filter(function (v) {
+                return usedKeys.indexOf(String(v.key)) >= 0;
+            });
+            if (!available.length) {
                 items.push({
                     text: g,
                     disabled: true,
@@ -118,7 +134,7 @@
                 });
                 return;
             }
-            var subItems = variants.map(function (v) {
+            var subItems = available.map(function (v) {
                 return {
                     text: v.key + ' — ' + v.name,
                     handler: function () {
@@ -140,7 +156,7 @@
             items.push({
                 text: _t('blockab.preview_combine', 'Combineer varianten...'),
                 handler: function () {
-                    openCombineModal(groups, variantsByGroup, resourceUri);
+                    openCombineModal(groups, variantsByGroup, usage, resourceUri);
                 }
             });
         }
@@ -148,7 +164,7 @@
         return items;
     }
 
-    function openCombineModal(groups, variantsByGroup, resourceUri) {
+    function openCombineModal(groups, variantsByGroup, usage, resourceUri) {
         var formItems = [];
         if (isFormDirty()) {
             formItems.push({
@@ -163,7 +179,9 @@
         var choices = {};
         groups.forEach(function (g) {
             var data = [['', _t('blockab.preview_site_default', 'Site default (geen override)')]];
+            var usedKeys = usage[g] || [];
             (variantsByGroup[g] || []).forEach(function (v) {
+                if (usedKeys.indexOf(String(v.key)) < 0) return;
                 data.push([v.key, v.key + ' — ' + v.name]);
             });
             formItems.push({
@@ -236,7 +254,8 @@
         var textareas = findMigxTextareas();
         if (!textareas.length) return;
 
-        var groups = collectTestGroups(textareas);
+        var usage = collectGroupVariantUsage(textareas);
+        var groups = Object.keys(usage);
         if (!groups.length) return;
 
         var toolbar = Ext.getCmp('modx-action-buttons');
@@ -272,7 +291,7 @@
             fetchInFlight = false;
             var liveBtn = Ext.getCmp('blockab-preview-button');
             if (!liveBtn) return; // toolbar got rebuilt while AJAX was in flight
-            var newItems = buildMenuItems(groups, variantsByGroup, resourceUri);
+            var newItems = buildMenuItems(groups, variantsByGroup, usage, resourceUri);
             if (liveBtn.menu) { liveBtn.menu.destroy(); }
             liveBtn.menu = new Ext.menu.Menu({ items: newItems });
         });
