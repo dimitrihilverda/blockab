@@ -123,3 +123,12 @@ $_lang['blockab.error.variant_key_exists'] = 'Deze variant key bestaat al voor d
 $_lang['blockab.error.test_group_exists'] = 'Deze test groep bestaat al. Kies een unieke test groep naam.';
 $_lang['blockab.error.test_save_failed'] = 'Test opslaan mislukt';
 $_lang['blockab.error.variation_save_failed'] = 'Variant opslaan mislukt';
+
+// Preview varianten (manager)
+$_lang['blockab.preview_button'] = 'Preview varianten';
+$_lang['blockab.preview_modal_title'] = 'Variant-combinatie kiezen';
+$_lang['blockab.preview_open'] = 'Preview openen';
+$_lang['blockab.preview_cancel'] = 'Annuleren';
+$_lang['blockab.preview_no_groups'] = 'Geen A/B-test groepen gevonden in deze resource';
+$_lang['blockab.preview_dirty_warning'] = 'Sla de resource eerst op om nieuwe blokken in de preview te zien';
+$_lang['blockab.preview_site_default'] = 'Site default (geen override)';

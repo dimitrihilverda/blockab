@@ -123,3 +123,12 @@ $_lang['blockab.error.variant_key_exists'] = 'This variant key already exists fo
 $_lang['blockab.error.test_group_exists'] = 'This test group already exists. Please choose a unique test group name.';
 $_lang['blockab.error.test_save_failed'] = 'Failed to save test';
 $_lang['blockab.error.variation_save_failed'] = 'Failed to save variation';
+
+// Preview variants (manager)
+$_lang['blockab.preview_button'] = 'Preview variants';
+$_lang['blockab.preview_modal_title'] = 'Choose variant combination';
+$_lang['blockab.preview_open'] = 'Open preview';
+$_lang['blockab.preview_cancel'] = 'Cancel';
+$_lang['blockab.preview_no_groups'] = 'No A/B test groups found in this resource';
+$_lang['blockab.preview_dirty_warning'] = 'Save the resource first to include new blocks in the preview';
+$_lang['blockab.preview_site_default'] = 'Site default (no override)';
