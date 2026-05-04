@@ -15,7 +15,7 @@ set_time_limit(0);
 /* Define package */
 define('PKG_NAME', 'BlockAB');
 define('PKG_NAME_LOWER', 'blockab');
-define('PKG_VERSION', '1.1.2');
+define('PKG_VERSION', '1.1.3');
 define('PKG_RELEASE', 'pl');
 
 /* Define paths */
@@ -121,6 +121,31 @@ if (count($snippets) > 0) {
     $modx->log(modX::LOG_LEVEL_INFO, 'Added ' . count($snippets) . ' snippets.');
 }
 
+/* Add plugin */
+$plugins = array();
+
+$plugins[0] = $modx->newObject('modPlugin');
+$plugins[0]->fromArray(array(
+    'id'          => 1,
+    'name'        => 'BlockABMigxCascade',
+    'description' => 'Loads MIGX cascade dropdown and preview-button JS on resource edit pages',
+    'plugincode'  => blockab_load_snippet($sources['source_core'] . '/elements/plugins/blockabmigxcascade.plugin.php'),
+), '', true, true);
+
+$pluginEvent = $modx->newObject('modPluginEvent');
+$pluginEvent->fromArray(array(
+    'pluginid'    => 1,
+    'event'       => 'OnDocFormPrerender',
+    'priority'    => 0,
+    'propertyset' => 0,
+), '', true, true);
+$plugins[0]->addMany(array($pluginEvent));
+
+if (count($plugins) > 0) {
+    $category->addMany($plugins);
+    $modx->log(modX::LOG_LEVEL_INFO, 'Added ' . count($plugins) . ' plugins.');
+}
+
 /* Create category vehicle */
 $attr = array(
     xPDOTransport::UNIQUE_KEY => 'category',
@@ -132,6 +157,19 @@ $attr = array(
             xPDOTransport::PRESERVE_KEYS => false,
             xPDOTransport::UPDATE_OBJECT => true,
             xPDOTransport::UNIQUE_KEY => 'name',
+        ),
+        'Plugins' => array(
+            xPDOTransport::PRESERVE_KEYS => false,
+            xPDOTransport::UPDATE_OBJECT => true,
+            xPDOTransport::UNIQUE_KEY => 'name',
+            xPDOTransport::RELATED_OBJECTS => true,
+            xPDOTransport::RELATED_OBJECT_ATTRIBUTES => array(
+                'PluginEvents' => array(
+                    xPDOTransport::PRESERVE_KEYS => true,
+                    xPDOTransport::UPDATE_OBJECT => false,
+                    xPDOTransport::UNIQUE_KEY => array('pluginid', 'event'),
+                ),
+            ),
         ),
     ),
 );
