@@ -15,7 +15,7 @@ set_time_limit(0);
 /* Define package */
 define('PKG_NAME', 'BlockAB');
 define('PKG_NAME_LOWER', 'blockab');
-define('PKG_VERSION', '1.1.1');
+define('PKG_VERSION', '1.1.2');
 define('PKG_RELEASE', 'pl');
 
 /* Define paths */
@@ -75,6 +75,12 @@ $category->set('category', PKG_NAME);
 
 $modx->log(modX::LOG_LEVEL_INFO, 'Created category.');
 
+/* MODX evals snippet bodies, so the leading <?php tag must NOT be stored in the DB */
+function blockab_load_snippet($path) {
+    $code = file_get_contents($path);
+    return preg_replace('/^\s*<\?(?:php)?\s*/', '', $code);
+}
+
 /* Add snippets */
 $snippets = array();
 
@@ -83,7 +89,7 @@ $snippets[0]->fromArray(array(
     'id' => 1,
     'name' => 'BlockAB',
     'description' => 'Determines if a MIGX block should be shown based on A/B testing',
-    'snippet' => file_get_contents($sources['source_core'] . '/elements/snippets/blockab.snippet.php'),
+    'snippet' => blockab_load_snippet($sources['source_core'] . '/elements/snippets/blockab.snippet.php'),
 ), '', true, true);
 
 $snippets[1] = $modx->newObject('modSnippet');
@@ -91,7 +97,7 @@ $snippets[1]->fromArray(array(
     'id' => 2,
     'name' => 'BlockABConversion',
     'description' => 'Registers a conversion for A/B tests',
-    'snippet' => file_get_contents($sources['source_core'] . '/elements/snippets/blockab.conversion.snippet.php'),
+    'snippet' => blockab_load_snippet($sources['source_core'] . '/elements/snippets/blockab.conversion.snippet.php'),
 ), '', true, true);
 
 $snippets[2] = $modx->newObject('modSnippet');
@@ -99,7 +105,7 @@ $snippets[2]->fromArray(array(
     'id' => 3,
     'name' => 'BlockABGetTestGroups',
     'description' => 'Returns available test groups for use in MIGX dropdowns',
-    'snippet' => file_get_contents($sources['source_core'] . '/elements/snippets/blockab.gettestgroups.snippet.php'),
+    'snippet' => blockab_load_snippet($sources['source_core'] . '/elements/snippets/blockab.gettestgroups.snippet.php'),
 ), '', true, true);
 
 $snippets[3] = $modx->newObject('modSnippet');
@@ -107,7 +113,7 @@ $snippets[3]->fromArray(array(
     'id' => 4,
     'name' => 'BlockABGetVariants',
     'description' => 'Returns available variants for a specific test group for use in MIGX dropdowns',
-    'snippet' => file_get_contents($sources['source_core'] . '/elements/snippets/blockab.getvariants.snippet.php'),
+    'snippet' => blockab_load_snippet($sources['source_core'] . '/elements/snippets/blockab.getvariants.snippet.php'),
 ), '', true, true);
 
 if (count($snippets) > 0) {

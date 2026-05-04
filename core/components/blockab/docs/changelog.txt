@@ -1,5 +1,9 @@
 Changelog for BlockAB
 
+BlockAB 1.1.2
+====================================
+- Fix: build.transport.php strips leading <?php from snippet sources before storing in DB. MODX evals snippet bodies, so a leading <?php tag ended up double-wrapped in the cached include file (parse error: unexpected '<' on line 2). Affected all 4 snippets — most visibly BlockABGetTestGroups, used as @EVAL in MIGX dropdowns, which crashed the resource MIGX edit window.
+
 BlockAB 1.1.1
 ====================================
 - Fix: home panel rendert leeg op installs zonder geregistreerd modAction record (renderTo expliciet op blockab-panel-home-div)
