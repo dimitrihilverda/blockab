@@ -1,7 +1,7 @@
 --------------------
 BlockAB
 --------------------
-Version: 1.1.12
+Version: 1.1.13
 Author: Moving-in.nl
 License: GPLv2
 

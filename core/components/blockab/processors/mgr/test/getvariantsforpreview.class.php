@@ -10,11 +10,14 @@
  *     "success": true,
  *     "object": {
  *       "groups": {
- *         "homepage_hero": [
- *           {"key": "A", "name": "Control"},
- *           {"key": "B", "name": "Treatment"}
- *         ],
- *         "header": [...]
+ *         "homepage_hero": {
+ *           "name": "Homepage Hero Test",
+ *           "variants": [
+ *             {"key": "A", "name": "Control"},
+ *             {"key": "B", "name": "Treatment"}
+ *           ]
+ *         },
+ *         "header": {...}
  *       }
  *     }
  *   }
@@ -40,7 +43,10 @@ class babTestGetVariantsForPreviewProcessor extends modProcessor {
 
         $result = array();
         foreach ($groups as $group) {
-            $result[$group] = array();
+            $result[$group] = array(
+                'name'     => $group, // fallback to the key if no test found
+                'variants' => array(),
+            );
             $test = $this->modx->getObject('babTest', array(
                 'test_group' => $group,
                 'active'     => 1,
@@ -49,12 +55,16 @@ class babTestGetVariantsForPreviewProcessor extends modProcessor {
             if (!$test) {
                 continue;
             }
+            $testName = $test->get('name');
+            if (!empty($testName)) {
+                $result[$group]['name'] = $testName;
+            }
             $variations = $this->modx->getCollection('babVariation', array(
                 'test'   => $test->get('id'),
                 'active' => 1,
             ));
             foreach ($variations as $v) {
-                $result[$group][] = array(
+                $result[$group]['variants'][] = array(
                     'key'  => $v->get('variant_key'),
                     'name' => $v->get('name'),
                 );

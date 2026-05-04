@@ -131,7 +131,9 @@
         }
 
         groups.forEach(function (g) {
-            var allVariants = variantsByGroup[g] || [];
+            var groupData = variantsByGroup[g] || { name: g, variants: [] };
+            var groupLabel = groupData.name || g;
+            var allVariants = groupData.variants || [];
             var usedKeys = usage[g] || [];
             // Only show variants that are both defined in the test AND
             // actually placed in this resource's MIGX blocks.
@@ -140,7 +142,7 @@
             });
             if (!available.length) {
                 items.push({
-                    text: g,
+                    text: groupLabel,
                     disabled: true,
                     qtip: _t('blockab.preview_no_variants', 'Geen actieve test voor deze groep')
                 });
@@ -157,7 +159,7 @@
                 };
             });
             items.push({
-                text: g,
+                text: groupLabel,
                 menu: { items: subItems }
             });
         });
@@ -190,15 +192,17 @@
 
         var choices = {};
         groups.forEach(function (g) {
+            var groupData = variantsByGroup[g] || { name: g, variants: [] };
+            var groupLabel = groupData.name || g;
             var data = [['', _t('blockab.preview_site_default', 'Site default (geen override)')]];
             var usedKeys = usage[g] || [];
-            (variantsByGroup[g] || []).forEach(function (v) {
+            (groupData.variants || []).forEach(function (v) {
                 if (usedKeys.indexOf(String(v.key)) < 0) return;
                 data.push([v.key, v.key + ' — ' + v.name]);
             });
             formItems.push({
                 xtype: 'combo',
-                fieldLabel: g,
+                fieldLabel: groupLabel,
                 store: new Ext.data.SimpleStore({
                     fields: ['key', 'display'],
                     data: data
