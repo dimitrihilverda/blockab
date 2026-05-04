@@ -1,5 +1,9 @@
 Changelog for BlockAB
 
+BlockAB 1.1.9
+====================================
+- Polish: "Combineer varianten..." menu item now only appears when the resource has 2 or more ab_test_groups. With a single group there is nothing to combine, so the divider + item are hidden.
+
 BlockAB 1.1.8
 ====================================
 - Fix: preview button now reappears correctly after the resource is saved. Previous logic relied on a sticky buttonInjected flag and a 10-second MutationObserver disconnect; if MODX rebuilt the toolbar (post-save) or MIGX rendered later than 10s the button stayed gone. New logic checks each iteration whether the button is actually attached to the current modx-action-buttons toolbar, throttles DOM-mutation reactions to 200ms, and keeps the observer running for the lifetime of the page.

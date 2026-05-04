@@ -134,13 +134,16 @@
             });
         });
 
-        items.push('-');
-        items.push({
-            text: _t('blockab.preview_combine', 'Combineer varianten...'),
-            handler: function () {
-                openCombineModal(groups, variantsByGroup, resourceUri);
-            }
-        });
+        // Combine option only makes sense with 2+ groups
+        if (groups.length > 1) {
+            items.push('-');
+            items.push({
+                text: _t('blockab.preview_combine', 'Combineer varianten...'),
+                handler: function () {
+                    openCombineModal(groups, variantsByGroup, resourceUri);
+                }
+            });
+        }
 
         return items;
     }
