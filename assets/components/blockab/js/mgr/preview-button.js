@@ -17,7 +17,8 @@
         ? MODx.config.assets_url
         : '/assets/') + 'components/blockab/connector.php';
 
-    var buttonInjected = false;
+    var checkScheduled = false;
+    var fetchInFlight = false;
 
     function _t(key, fallback) {
         var v = (typeof _ === 'function') ? _(key) : null;
@@ -209,8 +210,25 @@
         win.show();
     }
 
+    /** True when our button is actually attached to the current toolbar.
+     *  We don't trust a sticky boolean — MODX re-renders the toolbar after
+     *  save, so the button can vanish even though we 'injected' it earlier. */
+    function buttonInToolbar() {
+        var toolbar = Ext.getCmp('modx-action-buttons');
+        if (!toolbar || !toolbar.items) return false;
+        var found = false;
+        toolbar.items.each(function (item) {
+            if (item && item.id === 'blockab-preview-button') {
+                found = true;
+                return false; // stop iteration
+            }
+        });
+        return found;
+    }
+
     function injectButton() {
-        if (buttonInjected) return;
+        // No double-inject if we're already in the toolbar
+        if (buttonInToolbar()) return;
 
         var textareas = findMigxTextareas();
         if (!textareas.length) return;
@@ -221,8 +239,10 @@
         var toolbar = Ext.getCmp('modx-action-buttons');
         if (!toolbar) return;
 
-        var existing = Ext.getCmp('blockab-preview-button');
-        if (existing) { existing.destroy(); }
+        // Stale instance from a previous render — clean up so insertButton
+        // doesn't trip on a duplicate id.
+        var orphan = Ext.getCmp('blockab-preview-button');
+        if (orphan) { orphan.destroy(); }
 
         var resourceUri = getResourceUri();
         if (!resourceUri) return;
@@ -242,25 +262,35 @@
 
         toolbar.insertButton(0, [btn]);
         toolbar.doLayout();
-        buttonInjected = true;
 
+        if (fetchInFlight) return;
+        fetchInFlight = true;
         fetchVariants(groups, function (variantsByGroup) {
+            fetchInFlight = false;
+            var liveBtn = Ext.getCmp('blockab-preview-button');
+            if (!liveBtn) return; // toolbar got rebuilt while AJAX was in flight
             var newItems = buildMenuItems(groups, variantsByGroup, resourceUri);
-            // Recreate menu to ensure clean state
-            if (btn.menu) {
-                btn.menu.destroy();
-            }
-            btn.menu = new Ext.menu.Menu({ items: newItems });
+            if (liveBtn.menu) { liveBtn.menu.destroy(); }
+            liveBtn.menu = new Ext.menu.Menu({ items: newItems });
         });
+    }
+
+    /** Throttle DOM-mutation reactions to at most one per 200ms. */
+    function scheduleCheck() {
+        if (checkScheduled) return;
+        checkScheduled = true;
+        setTimeout(function () {
+            checkScheduled = false;
+            injectButton();
+        }, 200);
     }
 
     function init() {
         injectButton();
-        var observer = new MutationObserver(function () {
-            if (!buttonInjected) injectButton();
-        });
+        var observer = new MutationObserver(scheduleCheck);
         observer.observe(document.body, { childList: true, subtree: true });
-        setTimeout(function () { observer.disconnect(); }, 10000);
+        // Observer keeps running for the lifetime of the page so the button
+        // re-appears when MODX rebuilds the toolbar (e.g. after save).
     }
 
     if (document.readyState === 'loading') {

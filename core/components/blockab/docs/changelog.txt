@@ -1,5 +1,9 @@
 Changelog for BlockAB
 
+BlockAB 1.1.8
+====================================
+- Fix: preview button now reappears correctly after the resource is saved. Previous logic relied on a sticky buttonInjected flag and a 10-second MutationObserver disconnect; if MODX rebuilt the toolbar (post-save) or MIGX rendered later than 10s the button stayed gone. New logic checks each iteration whether the button is actually attached to the current modx-action-buttons toolbar, throttles DOM-mutation reactions to 200ms, and keeps the observer running for the lifetime of the page.
+
 BlockAB 1.1.7
 ====================================
 - Fix: visits by users with an active manager session no longer write to babPick or babConversion. Manager preview / QA / editors visiting their own thank-you page must not pollute test stats. Gate is hasSessionContext('mgr'), checked in pickOne() (skips registerPick) and at the top of registerConversion() (early return with debug log line "SKIP: ingelogde manager").

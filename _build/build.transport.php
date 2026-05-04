@@ -15,7 +15,7 @@ set_time_limit(0);
 /* Define package */
 define('PKG_NAME', 'BlockAB');
 define('PKG_NAME_LOWER', 'blockab');
-define('PKG_VERSION', '1.1.7');
+define('PKG_VERSION', '1.1.8');
 define('PKG_RELEASE', 'pl');
 
 /* Define paths */
