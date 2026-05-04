@@ -1,5 +1,11 @@
 Changelog for BlockAB
 
+BlockAB 1.1.4
+====================================
+- Fix: preview-knop wordt voortaan in de top action-bar van de resource-edit pagina geinjecteerd (naast Opslaan/Bekijk/etc.) ipv boven het eerste TV op de pagina, wat soms op een verkeerde tab uitkwam
+- Fix: BlockABMigxCascade plugin laadt voortaan de blockab lexicon-strings in MODx.lang zodat de preview-knop niet "undefined" toont op resource-edit pagina's
+- preview-button.js krijgt fallback-strings zodat een ontbrekende lexicon-load niet meer leidt tot lege of "undefined" UI
+
 BlockAB 1.1.3
 ====================================
 - Manager variant preview: knop op resource-edit pagina (boven MIGX-grid) opent modal met dropdown per ab_test_group, "Preview openen" opent de resource met ?ab_<group>=<variant> overrides in nieuw tabblad

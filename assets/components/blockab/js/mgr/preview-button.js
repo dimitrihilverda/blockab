@@ -16,6 +16,13 @@
 
     var buttonInjected = false;
 
+    /** Lexicon helper with fallback for when the topic isn't loaded yet. */
+    function _t(key, fallback) {
+        var v = (typeof _ === 'function') ? _(key) : null;
+        if (v === undefined || v === null || v === '' || v === key) return fallback;
+        return v;
+    }
+
     /** Find all MIGX TV textareas on the page. Identified by JSON value
      *  that is an array whose first element has a MIGX_id field. */
     function findMigxTextareas() {
@@ -75,14 +82,14 @@
             formItems.push({
                 xtype: 'displayfield',
                 hideLabel: true,
-                value: _('blockab.preview_dirty_warning'),
+                value: _t('blockab.preview_dirty_warning', 'Sla de resource eerst op om nieuwe blokken in de preview te zien'),
                 style: 'color:#b6862e; padding:4px 0 8px 0; font-style:italic;'
             });
         }
 
         var choices = {};
         groups.forEach(function (g) {
-            var data = [['', _('blockab.preview_site_default')]];
+            var data = [['', _t('blockab.preview_site_default', 'Site default (geen override)')]];
             (variantsByGroup[g] || []).forEach(function (v) {
                 data.push([v.key, v.key + ' — ' + v.name]);
             });
@@ -109,7 +116,7 @@
         });
 
         var win = new Ext.Window({
-            title: _('blockab.preview_modal_title'),
+            title: _t('blockab.preview_modal_title', 'Variant-combinatie kiezen'),
             modal: true,
             width: 440,
             autoHeight: true,
@@ -118,10 +125,10 @@
             labelWidth: 160,
             items: formItems,
             buttons: [{
-                text: _('blockab.preview_cancel'),
+                text: _t('blockab.preview_cancel', 'Annuleren'),
                 handler: function () { win.close(); }
             }, {
-                text: _('blockab.preview_open'),
+                text: _t('blockab.preview_open', 'Preview openen'),
                 handler: function () {
                     var url = buildPreviewUrl(resourceUri, choices);
                     window.open(url, '_blank');
@@ -149,8 +156,8 @@
 
         if (!groups.length) {
             Ext.Msg.alert(
-                _('blockab.preview_modal_title'),
-                _('blockab.preview_no_groups')
+                _t('blockab.preview_modal_title', 'Variant-combinatie kiezen'),
+                _t('blockab.preview_no_groups', 'Geen A/B-test groepen gevonden in deze resource')
             );
             return;
         }
@@ -176,34 +183,27 @@
 
     function injectButton() {
         if (buttonInjected) return;
-        var textareas = findMigxTextareas();
-        if (!textareas.length) return;
 
-        var firstMigx = textareas[0];
-        var formItem = firstMigx.closest
-            ? firstMigx.closest('.x-form-item')
-            : null;
-        if (!formItem) {
-            // Fallback: walk parents manually
-            var p = firstMigx.parentNode;
-            while (p && (!p.classList || !p.classList.contains('x-form-item'))) {
-                p = p.parentNode;
-            }
-            formItem = p;
-        }
-        if (!formItem || !formItem.parentNode) return;
+        // Only inject on resource pages that contain at least one MIGX TV
+        if (!findMigxTextareas().length) return;
 
-        var btnRow = document.createElement('div');
-        btnRow.className = 'blockab-preview-button-row';
-        btnRow.style.cssText = 'margin: 4px 0 8px 0;';
-        btnRow.innerHTML = '<button type="button" '
+        // Target: top action-buttons toolbar (sits next to Save/Delete/etc.)
+        var container = document.getElementById('modx-action-buttons-container');
+        if (!container) return;
+
+        var wrap = document.createElement('span');
+        wrap.className = 'blockab-preview-button-wrap';
+        wrap.style.cssText = 'display:inline-block; margin:0 8px 0 0; vertical-align:middle;';
+        wrap.innerHTML = '<button type="button" '
             + 'style="background:#4a90e2;color:#fff;border:none;'
-            + 'padding:6px 14px;border-radius:3px;cursor:pointer;'
-            + 'font-size:12px;">'
-            + _('blockab.preview_button')
+            + 'padding:5px 12px;border-radius:3px;cursor:pointer;'
+            + 'font-size:12px;font-weight:bold;">'
+            + _t('blockab.preview_button', 'Preview varianten')
             + '</button>';
-        formItem.parentNode.insertBefore(btnRow, formItem);
-        btnRow.querySelector('button').addEventListener('click', onPreviewClick);
+
+        // Insert at the start of the action-buttons container (left side)
+        container.insertBefore(wrap, container.firstChild);
+        wrap.querySelector('button').addEventListener('click', onPreviewClick);
         buttonInjected = true;
     }
 
