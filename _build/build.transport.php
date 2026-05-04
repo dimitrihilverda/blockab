@@ -132,14 +132,15 @@ $plugins[0]->fromArray(array(
     'plugincode'  => blockab_load_snippet($sources['source_core'] . '/elements/plugins/blockabmigxcascade.plugin.php'),
 ), '', true, true);
 
-$pluginEvent = $modx->newObject('modPluginEvent');
-$pluginEvent->fromArray(array(
+$pluginEvents = array();
+$pluginEvents[0] = $modx->newObject('modPluginEvent');
+$pluginEvents[0]->fromArray(array(
     'pluginid'    => 1,
     'event'       => 'OnDocFormPrerender',
     'priority'    => 0,
     'propertyset' => 0,
 ), '', true, true);
-$plugins[0]->addMany(array($pluginEvent));
+$plugins[0]->addMany($pluginEvents);
 
 if (count($plugins) > 0) {
     $category->addMany($plugins);
