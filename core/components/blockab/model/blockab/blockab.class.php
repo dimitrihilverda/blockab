@@ -737,4 +737,25 @@ class BlockAB {
 
         return implode('||', $result);
     }
+
+    /**
+     * Resolve a test_group key to the test's display name.
+     * Falls back to the group key when no matching test exists or the
+     * test has no name set.
+     *
+     * @param string $testGroup
+     * @return string
+     */
+    public function getTestNameForGroup($testGroup) {
+        $testGroup = trim((string)$testGroup);
+        if ($testGroup === '') {
+            return '';
+        }
+        $test = $this->modx->getObject('babTest', array('test_group' => $testGroup));
+        if (!$test) {
+            return $testGroup;
+        }
+        $name = $test->get('name');
+        return !empty($name) ? $name : $testGroup;
+    }
 }

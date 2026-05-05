@@ -27,10 +27,18 @@ if ($group === '') {
     return '';
 }
 
-$test = $modx->getObject('babTest', array('test_group' => $group));
-if (!$test) {
+// Initialize BlockAB — the constructor calls $modx->addPackage('blockab', ...)
+// which is required before $modx->getObject('babTest', ...) can resolve the
+// custom xPDO class.
+$blockabPath      = $modx->getOption('blockab.core_path', null,
+    $modx->getOption('core_path') . 'components/blockab/');
+$blockabModelPath = $blockabPath . 'model/';
+
+if (!$modx->loadClass('blockab', $blockabModelPath . 'blockab/', true, true)) {
+    $modx->log(modX::LOG_LEVEL_ERROR, '[BlockAB] Could not load BlockAB class');
     return $group;
 }
 
-$name = $test->get('name');
-return !empty($name) ? $name : $group;
+$blockab = new BlockAB($modx);
+
+return $blockab->getTestNameForGroup($group);

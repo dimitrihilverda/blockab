@@ -1,5 +1,9 @@
 Changelog for BlockAB
 
+BlockAB 1.1.15
+====================================
+- Fix: BlockABTestName snippet always returned the group key instead of the test name. The snippet called $modx->getObject('babTest', ...) directly, but xPDO doesn't know about the babTest class until $modx->addPackage('blockab', ...) has been called — which happens in BlockAB::__construct(). Snippet now loads + instantiates the BlockAB class first (matching BlockABGetTestGroups / BlockABGetVariants) and delegates to a new class method getTestNameForGroup(). Logic moved to the model where it belongs.
+
 BlockAB 1.1.14
 ====================================
 - New snippet BlockABTestName: resolves an ab_test_group key to the test's display name. Intended for MIGX renderChunk templates so the grid can show "Eerste test / A" instead of "eerste_test / A". Usage: [[BlockABTestName? &group=`[[+ab_test_group]]`]] / [[+ab_test_variant]]. Falls back to the group key when no matching test exists.
